@@ -1,0 +1,150 @@
+PAYMENT_METHOD_CC,Credit Card
+PAYMENT_METHOD_DD,Direct Debit
+PAYMENT_METHOD_CC3D,"Credit Card (3D Secure)"
+PAYMENT_METHOD_PREPAID,Prepaid
+PAYMENT_METHOD_PAYPAL,PayPal
+PAYMENT_METHOD_SU,Sofort&uuml;berweisung
+PAYMENT_METHOD_BILL,Bill Payment without payment Guarantee
+PAYMENT_METHOD_BILL_SECURE,Bill Payment with payment Guarantee
+PAYMENT_METHOD_COD,Cash On Delivery
+PAYMENT_METHOD_IDEAL,Ideal
+PAYMENT_METHOD_INSTALLMENT,Installment
+PAYMENT_METHOD_PAYCO_WALLET,Payco Wallet
+PAYMENT_METHOD_PAYCO_DUMMY,Dummy
+CC,Credit Card
+DD,Direct Debit
+CC3D,"Credit Card (3D Secure)"
+PREPAID,Prepaid
+PAYPAL,PayPal
+SU,Sofort&uuml;berweisung
+BILL,Bill Payment without payment Guarantee
+BILL_SECURE,Bill Payment with payment Guarantee
+COD,Cash On Delivery
+IDEAL,Ideal
+INSTALLMENT,Installment
+PAYCO_WALLET,Payco Wallet
+PAYCO_DUMMY,Dummy
+PAYMENT_METHOD_STATUS_NEW,New
+PAYMENT_METHOD_STATUS_ACKNOWLEDGEPENDING,Acknowledge Pending
+PAYMENT_METHOD_STATUS_CIAPENDING,Cash in Advance Pending
+PAYMENT_METHOD_STATUS_MERCHANTPENDING,Merchant Response waiting
+PAYMENT_METHOD_STATUS_CANCELLED,Transaction Cancelled
+PAYMENT_METHOD_STATUS_INPROGRESS,Transaction in Progress
+PAYMENT_METHOD_STATUS_FRAUDPENDING,Fraud check pending
+PAYMENT_METHOD_STATUS_FRAUDCANCELLED,Fraud Detected
+PAYMENT_METHOD_STATUS_EXPIRED,Transaction Expired
+PAYMENT_METHOD_STATUS_DONE,Transaction Done
+Test,Test
+Live,Live
+NEW,New
+ACKNOWLEDGEPENDING,Acknowledge Pending
+CIAPENDING,Cash in Advance Pending
+MERCHANTPENDING,Merchant Response waiting
+CANCELLED,Transaction Cancelled
+INPROGRESS,Transaction in Progress
+FRAUDPENDING,Fraud check pending
+FRAUDCANCELLED,Fraud Detected
+EXPIRED,Transaction Expired
+DONE,Transaction Done
+Payment Method,Payment Method
+Transaction Status,Transaction Status
+Payment method could not be determined,Payment method could not be determined
+transactionAmount,Transaction Amount
+transactionCurrency,Transaction Currency
+bankname,Bank Name
+bic,BIC
+iban,IBAN
+bankAccountHolder,Bank Account Holder
+paymentReference,Payment Reference
+sepaMandate,Sepa Mandate
+customerEmail, Email
+deliveryAddressCo,Delivery Address Company
+deliveryAddressZip,Delivery Address Postcode
+deliveryAddressNo,Delivery Address Number
+deliveryAddressNoAdditional,Delivery Address Number Additional
+deliveryAddressCity,Delivery Address City
+deliveryAddressState,Delivery Address State
+deliveryAddressStreet,Delivery Address Street
+deliveryAddressRecipient,Delivery Address Recipient
+deliveryAddressCountry,Delivery Address Country
+Add Currency to Store ID mapping,Add Currency to Store ID mapping
+Currency,Currency
+Store ID,Store ID
+Customer group risk class,Customer group risk class
+Customer Group,Customer Group
+Risk Class,Risk Class
+There was an error please contact the merchant,There was an error please contact the merchant
+Finish call sent,Finish call sent
+Got a API finish error %s,Got a API finish error %s
+Cancel call sent,Cancel call sent
+Got a API cancel error %s,Got a API cancel error %s
+Impossible to issue a refund transaction because the capture transaction does not exist.,Impossible to issue a refund transaction because the capture transaction does not exist.
+Are you sure you want to do this?,Are you sure you want to do this?
+Send Finish API call,Send Finish API call
+Send Cancel API call,Send Cancel API call
+Commercial register,Commercial register
+Trade register department A,Trade register department A
+Trade register department B,Trade register department B
+Partnership register,Partnership register
+Cooperative society register,Cooperative society register
+Register of associations,Register of associations
+Luxembourg A,Luxembourg A
+Luxembourg B,Luxembourg B
+Luxembourg C,Luxembourg C
+Luxembourg D,Luxembourg D
+Luxembourg E,Luxembourg E
+Luxembourg F,Luxembourg F
+Please Select,Please Select
+Default,Default
+High,High
+Trusted,Trusted
+Select a billing address from your address book or enter a new address.,Select a billing address from your address book or enter a new address.
+Company,Company
+Company Registration Id,Company Registration Id
+Company Registration Type,Company Registration Type
+Please wait while we confirm your payment selection,Please wait while we confirm your payment selection
+Upg Payments,Upg Payments
+CefoPay Payments,CefoPay Payments
+Global Settings,Global Settings
+Enabled,Enabled
+Enable or disable the payment method,Enable or disable the payment method
+Payment Method Name,Payment Method Name
+Payment Method Name,Payment Method Name
+Payment Method Description,Payment Method Description
+Checkout Description,Checkout Description
+Upload File,Upload File
+Image to show on payment option,Image to show on payment option
+Image to show on payment selection in the cart,Image to show on payment selection in the cart
+Checkout Auto Select,Checkout Auto Select
+Force auto select of payment on checkout if the Upg method is the only one available,Force auto select of payment on checkout if the Upg method is the only one available
+Merchant ID,Merchant ID
+The merchant identifier for your account,The merchant identifier for your account
+Merchant Key,Merchant Key
+The merchant key for your account,The merchant key for your account
+Environment Mode,Environment Mode
+Live or testing transaction mode,Live or testing transaction mode
+Auto Capture,Auto Capture
+Enable auto capture on transactions,Enable auto capture on transactions
+Risk Class,Risk Class
+Risk class for transactions,Risk class for transactions
+Use Product Risk Class,Use Product Risk Class
+Use product risk class setting, however risk class has to be managed on a per product bases,Use product risk class setting, however risk class has to be managed on a per product bases
+B2B settings,B2B settings
+Enable B2B transaction,Enable B2B transaction
+Enable B2B transaction if user provides a company name with a company registration id,Enable B2B transaction if user provides a company name with a company registration id
+Show extended B2B fields,Show extended B2B fields
+Show the extend b2b on the checkout,Show the extend b2b on the checkout
+Show Company Registration type,Show Company Registration type
+Show Company Registration type on checkout,Show Company Registration type on checkout
+Store Settings,Store Settings
+Currency to Store ID Mapping,Currency to Store ID Mapping
+Map your Upg store to your Magento currency,Map your Upg store to your Magento currency
+Map your Crefo store to your Magento currency,Map your Crefo store to your Magento currency
+Customer Settings,Customer Settings
+Customer Risk class mapping,Customer Risk class mapping
+Map customer groups to a given risk class,Map customer groups to a given risk class
+Logging and Debug,Logging and Debug
+Logging Toggle,Logging Toggle
+Logging File,Logging File
+API Logging File,API Logging File
+Log Level,Log Level

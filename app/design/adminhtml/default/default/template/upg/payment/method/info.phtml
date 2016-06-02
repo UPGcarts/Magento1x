@@ -1,0 +1,24 @@
+<?php /**@var Upg_Payments_Block_Payment_Info $this **/ ?>
+<?php $response = $this->getStatusResponse(); ?>
+<?php if(!empty($response)): ?>
+    <?php $additionalData = $response->getData('additionalData'); ?>
+    <dl>
+        <?php if(array_key_exists('paymentMethod', $additionalData) && !empty($additionalData['paymentMethod'])): ?>
+            <dt><strong><?php echo $this->__('Payment Method'); ?></strong></dt>
+            <dd><?php echo $this->__($additionalData['paymentMethod']); ?></dd>
+        <?php else: ?>
+            <dt><strong><?php echo $this->__('Payment Method'); ?></strong></dt>
+            <dd><?php echo $this->__('Payment method could not be determined'); ?></dd>
+        <?php endif; ?>
+        <?php if(!$this->getIsSecureMode()): ?>
+            <dt><strong><?php echo $this->__('Transaction Status'); ?></strong></dt>
+            <dd><?php echo $this->__($response->getData('transactionStatus')); ?></dd>
+        <?php endif; ?>
+        <?php foreach($additionalData as $label=>$value): ?>
+            <?php if($label != 'paymentMethod' && $this->fieldShouldBeShown($label)): ?>
+                <dt><strong><?php echo $this->__($label); ?></strong></dt>
+                <dd><?php echo $this->escapeHtml($value); ?></dd>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </dl>
+<?php endif; ?>

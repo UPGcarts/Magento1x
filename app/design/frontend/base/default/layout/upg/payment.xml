@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="payment/upg/enabled">
+                <script>Upg/upg.js</script>
+            </action>
+            <action method="addJs" ifconfig="payment/upg/enabled">
+                <script>Upg/jquery.fancybox.pack.js</script>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>Upg/jquery.fancybox.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="upg_payments/javascriptConfig" name="upg_config" as="upg_config" />
+        </reference>
+        <reference name="before_body_end">
+            <block type="core/template" name="upg_js_overwrite" template="upg/checkout/onepage/upg.phtml" />
+        </reference>
+        <reference name="checkout.onepage.billing">
+            <action ifconfig="payment/upg/enabled" method="setTemplate">
+                <template>upg/checkout/onepage/billing.phtml</template>
+            </action>
+        </reference>
+    </checkout_onepage_index>
+    <upg_payments_payment_confirm>
+        <reference name="root">
+            <action method="setTemplate"><template>upg/checkout/onepage/confirmation.phtml</template></action>
+        </reference>
+    </upg_payments_payment_confirm>
+    <upg_payments_payment_recovery>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="upg_payments/recovery" name="upg_iframe_recovery" template="upg/payment/recovery.phtml" />
+        </reference>
+    </upg_payments_payment_recovery>
+    <customer_address_form translate="label">
+        <label>Customer My Account Address Edit Form</label>
+        <update handle="customer_account"/>
+        <reference name="my.account.wrapper">
+            <block type="customer/address_edit" name="customer_address_edit" template="upg/customer/address/edit.phtml"/>
+        </reference>
+    </customer_address_form>
+</layout>

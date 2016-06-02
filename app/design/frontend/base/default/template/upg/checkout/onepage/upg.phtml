@@ -1,0 +1,24 @@
+<?php
+/**
+ * Intercept various functions for the defult checkout to show iframe
+ */
+?>
+<!-- default one page support -->
+<script type="text/javascript">
+    UpgMagentoJs.addMethods({
+        preparePaymentObserver: function() {
+            var UpgMagentoJs = this;
+            var _originalPaymentSaveMethod = Payment.prototype.save;
+            Payment.prototype.save = function() {
+                if(this.currentMethod == 'upg_payments') {
+                    UpgMagentoJsIntegration.setPaymentCallback(_originalPaymentSaveMethod, this);
+                    UpgMagentoJsIntegration.getPaymentIframe(arguments);
+                } else {
+                    return _originalPaymentSaveMethod.apply(this, arguments);
+                }
+            }
+        }
+    });
+
+    var UpgMagentoJsIntegration = new UpgMagentoJs();
+</script>

@@ -1,0 +1,31 @@
+projectName: Payment Module
+title: Payment Module
+template:
+    url: https://github.com/siriusphp/Template-ReadTheDocs
+baseUrl: http://upgplc-magento.php53.co.uk/docs
+menu:
+  sections:
+    installation:
+      name: Installation
+      items:
+        installation:
+          text: Installation
+          relativeUrl: installation.html
+    configuration:
+      name: Installation
+      items:
+        configuration:
+          text: Configuration
+          relativeUrl: configuration.html
+    usage:
+      name: Usage
+      items:
+        usage:
+          text: Usage
+          relativeUrl: usage.html
+    notes:
+      name: Notes
+      items:
+        notes:
+          text: Notes
+          relativeUrl: notes.html

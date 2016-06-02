@@ -1,0 +1,22 @@
+<?php $redirectUrl = Mage::registry('payco_recovery_redirect');?>
+<html>
+    <head>
+        <script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS, true); ?>prototype/prototype.js"></script>
+    </head>
+    <body>
+        <p><?php echo $this->__('Please wait while we confirm your payment selection'); ?></p>
+        <?php if(!empty($redirectUrl)): ?>
+            <script type="text/javascript">
+                window.top.location.href = '<?php echo $redirectUrl ?>';
+            </script>
+        <?php else: ?>
+        <script type="text/javascript">
+            //<![CDATA[
+            document.observe("dom:loaded", function() {
+                parent.jQuery.fancybox.close();
+            });
+            //]]>
+        </script>
+        <?php endif; ?>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+<?php /**
+ * @var Upg_Payments_Block_Payment_Form $this
+ */
+$_code = $this->getMethodCode();
+if($this->hasDescription() || $this->hasImage()): ?>
+    <div id="payment_form_<?php echo $_code ?>" style="display:none;" class="form-list">
+        <?php if($this->hasImage()): ?>
+            <p><img src="<?php echo $this->getImage(); ?>" /></p>
+        <?php endif; ?>
+        <?php if($this->hasDescription()): ?>
+            <p><?php echo $this->getDescription(); ?></p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

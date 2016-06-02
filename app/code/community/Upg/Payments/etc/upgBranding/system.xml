@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <upg_payments translate="label" module="upg_payments">
+            <label>Upg Payments</label>
+            <class>upg-payments-section</class>
+            <header_css>upg-payments-header</header_css>
+            <tab>sales</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>340</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <upg_payments_global translate="label" module="upg_payments">
+                    <label>Global Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enabled>
+                            <label>Enabled</label>
+                            <comment><![CDATA[Enable or disable the payment method]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>10</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/enabled</config_path>
+                        </enabled>
+                        <title>
+                            <label>Payment Method Name</label>
+                            <comment><![CDATA[Payment Method Name]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>10</sort_order>
+                            <config_path>payment/upg/title</config_path>
+                        </title>
+                        <checkout_description>
+                            <label>Payment Method Description</label>
+                            <comment><![CDATA[Checkout Description]]></comment>
+                            <frontend_type>textarea</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>15</sort_order>
+                            <config_path>payment/upg/checkout_description</config_path>
+                        </checkout_description>
+                        <option_image translate="image_config">
+                            <label>Upload File</label>
+                            <comment>Image to show on payment option</comment>
+                            <tooltip>Image to show on payment selection in the cart</tooltip>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_file</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">admin-config-uploads</upload_dir>
+                            <base_url type="media" scope_info="1">admin-config-uploads</base_url>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <config_path>payment/upg/option_image</config_path>
+                        </option_image>
+                        <autoselect>
+                            <label>Checkout Auto Select</label>
+                            <comment><![CDATA[Force auto select of payment on checkout if the Upg method is the only one available]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>20</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/autoselect</config_path>
+                        </autoselect>
+                        <vendor_id>
+                            <label>Merchant ID</label>
+                            <comment><![CDATA[The merchant identifier for your account]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <config_path>payment/upg/merchant_id</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>20</sort_order>
+                        </vendor_id>
+                        <vendor_key>
+                            <label>Merchant Key</label>
+                            <comment><![CDATA[The merchant key for your account]]></comment>
+                            <frontend_type>obscure</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
+                            <config_path>payment/upg/merchant_key</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>30</sort_order>
+                        </vendor_key>
+                        <transaction_mode translate="label">
+                            <label>Environment Mode</label>
+                            <comment><![CDATA[Live or testing transaction mode]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>upg_payments/sourceModels_environment</source_model>
+                            <config_path>payment/upg/transaction_mode</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>40</sort_order>
+                        </transaction_mode>
+                        <capture_auto>
+                            <label>Auto Capture</label>
+                            <comment><![CDATA[Enable auto capture on transactions]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/capture_auto</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>50</sort_order>
+                        </capture_auto>
+                        <risk_class translate="label">
+                            <label>Risk Class</label>
+                            <comment><![CDATA[Risk class for transactions]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>upg_payments/sourceModels_riskClass</source_model>
+                            <config_path>payment/upg/risk_class</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>60</sort_order>
+                        </risk_class>
+                        <product_risk_class translate="label">
+                            <label>Use Product Risk Class</label>
+                            <comment><![CDATA[Use product risk class setting, however risk class has to be managed on a per product bases]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>70</sort_order>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/product_risk_class</config_path>
+                        </product_risk_class>
+                    </fields>
+                </upg_payments_global>
+                <upg_payments_b2b translate="label" module="upg_payments">
+                    <label>B2B settings</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enable_b2b>
+                            <label>Enable B2B transaction</label>
+                            <comment><![CDATA[Enable B2B transaction if user provides a company name with a company registration id]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/enable_b2b</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>10</sort_order>
+                        </enable_b2b>
+                        <show_extended_b2b_checkout>
+                            <label>Show extended B2B fields</label>
+                            <comment><![CDATA[Show the extend b2b on the checkout]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/show_extended_b2b_checkout</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>10</sort_order>
+                        </show_extended_b2b_checkout>
+                        <show_company_registration_type>
+                            <label>Show Company Registration type</label>
+                            <comment><![CDATA[Show Company Registration type on checkout]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/b2b_show_registration_type</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <sort_order>50</sort_order>
+                        </show_company_registration_type>
+                    </fields>
+                </upg_payments_b2b>
+                <upg_payments_store translate="label" module="upg_payments">
+                    <label>Store Settings</label>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <!--<store_id>-->
+                            <!--<label>Store ID</label>-->
+                            <!--<comment><![CDATA[The ID for your store]]></comment>-->
+                            <!--<frontend_type>text</frontend_type>-->
+                            <!--<config_path>payment/payco/store_id</config_path>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>1</show_in_website>-->
+                            <!--<show_in_store>1</show_in_store>-->
+                        <!--</store_id>-->
+                        <currency_mapping>
+                            <label>Currency to Store ID Mapping</label>
+                            <comment><![CDATA[Map your Upg store to your Magento currency]]></comment>
+                            <frontend_model>upg_payments/adminhtml_system_config_currencysettings</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <config_path>payment/upg/currency_mapping</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </currency_mapping>
+                    </fields>
+                </upg_payments_store>
+                <upg_payments_customer translate="label" module="upg_payments">
+                    <label>Customer Settings</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <customergroup_riskclass>
+                            <label>Customer Risk class mapping</label>
+                            <comment><![CDATA[Map your Upg store to your Magento currency]]></comment>
+                            <frontend_model>upg_payments/adminhtml_system_config_customerriskclass</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <config_path>payment/upg/customergroup_riskclass</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </customergroup_riskclass>
+                    </fields>
+                </upg_payments_customer>
+                <upg_payments_debug translate="label" module="upg_payments">
+                    <label>Logging and Debug</label>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <log_on>
+                            <label>Logging Toggle</label>
+                            <comment><![CDATA[Enable logging]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/log_on</config_path>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </log_on>
+                        <log_target>
+                            <label>Logging File</label>
+                            <comment><![CDATA[Name for general logging file in var/log]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <config_path>payment/upg/log_target</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </log_target>
+                        <log_api_target>
+                            <label>API Logging File</label>
+                            <comment><![CDATA[Name for the API logging file in var/log]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <config_path>payment/upg/log_api_target</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </log_api_target>
+                        <log_level>
+                            <label>Log Level</label>
+                            <comment><![CDATA[The level of logging to output to files]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>40</sort_order>
+                            <config_path>payment/upg/log_level</config_path>
+                            <source_model>upg_payments/sourceModels_logLevel</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </log_level>
+                    </fields>
+                </upg_payments_debug>
+            </groups>
+        </upg_payments>
+    </sections>
+</config>

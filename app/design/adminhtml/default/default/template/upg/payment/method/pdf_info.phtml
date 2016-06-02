@@ -1,0 +1,13 @@
+<?php /**@var Upg_Payments_Block_Payment_Info $this **/ ?>
+<?php $response = $this->getStatusResponse(); ?>
+<?php if(!empty($response)): ?>
+    <?php $additionalData = $response->getData('additionalData'); ?>
+        <?php echo $this->__('Payment Method'); ?>: <?php echo $this->__($additionalData['paymentMethod']); ?>
+        {{pdf_row_separator}}
+        <?php foreach($additionalData as $label=>$value): ?>
+            <?php if($label != 'paymentMethod' && $this->fieldShouldBeShown($label)): ?>
+                <?php echo $this->__($label); ?>: <?php echo $this->escapeHtml($value); ?>
+                {{pdf_row_separator}}
+            <?php endif; ?>
+        <?php endforeach; ?>
+<?php endif; ?>
