@@ -2,5 +2,11 @@
     "minimum-stability": "dev",
     "require": {
         "upgplc/php-clientlibrary": "dev-master"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "optimize-autoloader": true
     }
 }

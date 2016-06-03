@@ -751,7 +751,7 @@ class CreateTransaction extends AbstractRequest
             $data['merchantReference'] = $this->getMerchantReference();
         }
 
-        if (!empty($this->userRiskClass) || !is_null($this->userRiskClass)) {
+        if ($this->userRiskClass !== null) {
             $data['userRiskClass'] = $this->getUserRiskClass();
         }
 

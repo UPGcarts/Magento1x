@@ -183,7 +183,7 @@ class BasketItem extends AbstractObject
             $return['basketItemID'] = $this->getBasketItemID();
         }
 
-        if (!is_null($this->basketItemRiskClass)) {
+        if ($this->basketItemRiskClass !== null) {
             $return['basketItemRiskClass'] = $this->getBasketItemRiskClass();
         }
 

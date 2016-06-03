@@ -38,5 +38,5 @@ If autocapture is not enabled and you have not done any capture you are able to 
 If autocapture is not enabled and you have not capture a whole order then to release funds back to the customer you will need to send the finish call. To do this please follow the following steps:
 
 * Merchant logs in to the admin and goes to Sales->Orders->Given Order
-* Merchant must have done or do at lest one or more partial captures
+* Merchant must have done or do at least one or more partial captures
 * Click on the 'Send Finish API call' button
