@@ -11,7 +11,7 @@ class Upg_Payments_Block_JavascriptConfig extends Mage_Core_Block_Template
         <script type=text/javascript>
             var UPG_PAYMENT_CONFIG = %s;
         </script>', json_encode(array(
-            'BASE_URL' => $this->getBaseUrl()
+            'BASE_URL' => Mage::getUrl('',array('_secure'=>true))
         )));
     }
 }

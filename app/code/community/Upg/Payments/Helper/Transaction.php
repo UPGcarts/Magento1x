@@ -69,12 +69,16 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
     public function getPerson(Mage_Sales_Model_Quote $quote)
     {
         $billing = $quote->getBillingAddress();
-
+        $email = $billing->getEmail();
+        if(empty($email))
+        { 
+            $email = $quote->getCustomerEmail(); 
+        }
         $user = new Person();
         $user->setSalutation($this->mapGenderToSalutation($quote->getCustomerGender()))
             ->setName($billing->getFirstname())
             ->setSurname($billing->getLastname())
-            ->setEmail($billing->getEmail());
+            ->setEmail($email);
         //->setPhoneNumber($billing->getTelephone());
         //->setFaxNumber($billing->getFax());
 
