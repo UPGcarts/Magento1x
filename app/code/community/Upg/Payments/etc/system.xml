@@ -16,7 +16,7 @@
                     <label>Global Settings</label>
                     <sort_order>10</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>0</show_in_website>
+                    <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <expanded>1</expanded>
                     <fields>
@@ -25,7 +25,7 @@
                             <comment><![CDATA[Enable or disable the payment method]]></comment>
                             <frontend_type>select</frontend_type>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>10</sort_order>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -36,8 +36,8 @@
                             <comment><![CDATA[Payment Method Name]]></comment>
                             <frontend_type>text</frontend_type>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <sort_order>10</sort_order>
                             <config_path>payment/upg/title</config_path>
                         </title>
@@ -46,8 +46,8 @@
                             <comment><![CDATA[Checkout Description]]></comment>
                             <frontend_type>textarea</frontend_type>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <sort_order>15</sort_order>
                             <config_path>payment/upg/checkout_description</config_path>
                         </checkout_description>
@@ -70,7 +70,7 @@
                             <comment><![CDATA[Force auto select of payment on checkout if the Upg method is the only one available]]></comment>
                             <frontend_type>select</frontend_type>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>20</sort_order>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -82,7 +82,7 @@
                             <frontend_type>text</frontend_type>
                             <config_path>payment/upg/merchant_id</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>20</sort_order>
                         </vendor_id>
@@ -93,7 +93,7 @@
                             <backend_model>adminhtml/system_config_backend_encrypted</backend_model>
                             <config_path>payment/upg/merchant_key</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>30</sort_order>
                         </vendor_key>
@@ -104,7 +104,7 @@
                             <source_model>upg_payments/sourceModels_environment</source_model>
                             <config_path>payment/upg/transaction_mode</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>40</sort_order>
                         </transaction_mode>
@@ -115,7 +115,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <config_path>payment/upg/capture_auto</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>50</sort_order>
                         </capture_auto>
@@ -126,7 +126,7 @@
                             <source_model>upg_payments/sourceModels_riskClass</source_model>
                             <config_path>payment/upg/risk_class</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>60</sort_order>
                         </risk_class>
@@ -135,7 +135,7 @@
                             <comment><![CDATA[Use product risk class setting, however risk class has to be managed on a per product bases]]></comment>
                             <frontend_type>select</frontend_type>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>70</sort_order>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -158,7 +158,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <config_path>payment/upg/enable_b2b</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                             <sort_order>10</sort_order>
                         </enable_b2b>
@@ -169,8 +169,8 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <config_path>payment/upg/show_extended_b2b_checkout</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <sort_order>10</sort_order>
                         </show_extended_b2b_checkout>
                         <show_company_registration_type>
@@ -180,8 +180,8 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <config_path>payment/upg/b2b_show_registration_type</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
-                            <show_in_store>0</show_in_store>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
                             <sort_order>50</sort_order>
                         </show_company_registration_type>
                     </fields>
@@ -239,7 +239,7 @@
                     <label>Logging and Debug</label>
                     <sort_order>30</sort_order>
                     <show_in_default>1</show_in_default>
-                    <show_in_website>0</show_in_website>
+                    <show_in_website>1</show_in_website>
                     <show_in_store>0</show_in_store>
                     <expanded>1</expanded>
                     <fields>
@@ -251,7 +251,7 @@
                             <config_path>payment/upg/log_on</config_path>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </log_on>
                         <log_target>
@@ -261,7 +261,7 @@
                             <sort_order>20</sort_order>
                             <config_path>payment/upg/log_target</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </log_target>
                         <log_api_target>
@@ -271,7 +271,7 @@
                             <sort_order>30</sort_order>
                             <config_path>payment/upg/log_api_target</config_path>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </log_api_target>
                         <log_level>
@@ -282,7 +282,7 @@
                             <config_path>payment/upg/log_level</config_path>
                             <source_model>upg_payments/sourceModels_logLevel</source_model>
                             <show_in_default>1</show_in_default>
-                            <show_in_website>0</show_in_website>
+                            <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
                         </log_level>
                     </fields>

@@ -136,13 +136,13 @@ class Upg_Payments_Model_Mns
             $order->hold();
         }
         self::setState($order,'fraud');
-        $order->addStatusHistoryComment("Order canceled due to fraud");
+        $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Order canceled due to fraud"));
     }
 
     public static function fraudPending(Mage_Sales_Model_Order $order)
     {
         self::setState($order,'fraud');
-        $order->addStatusHistoryComment("Extended fraud check being processed");
+        $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Extended fraud check being processed"));
     }
 
     public static function merchantPending(Mage_Sales_Model_Order $order, Upg_Payments_Model_Message $message)
@@ -163,23 +163,27 @@ class Upg_Payments_Model_Mns
                 //ok now check the order amount and depending on if all or some were captured update the status
                 if($amount >= $orderAmount) {
                     //all payment was received
-                    $order->addStatusHistoryComment("Prepaid full payment ".$convertedAmount.' '.$order->getOrderCurrencyCode());
+                    $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Prepaid full payment %s", $convertedAmount.' '.$order->getOrderCurrencyCode()));
                     $status = Mage_Sales_Model_Order::STATE_PROCESSING;
                 }else{
                     //partial payment
-                    $order->addStatusHistoryComment("Prepaid partial payment ".$convertedAmount.' '.$order->getOrderCurrencyCode());
+                    //Mage::helper('upg_payments')->__('Got a API finish error %s', $e->getMessage())
+                    $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Prepaid partial payment %s",$convertedAmount.' '.$order->getOrderCurrencyCode()));
                     $status = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
                 }
                 self::setState($order,$status,$status);
                 $order->save();
             }
+        }else{
+            $order->addStatusHistoryComment("Waiting for capture");
+            $order->save();
         }
     }
 
     public static function ciaPending(Mage_Sales_Model_Order $order)
     {
         self::setState($order,'pending_payment','pending_payment');
-        $order->addStatusHistoryComment("Cash in advance is pending");
+        $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Cash in advance is pending"));
         $order->save();
     }
 
@@ -200,7 +204,7 @@ class Upg_Payments_Model_Mns
         }
 
         if(!in_array($transaction->getPaymentMethod(), array('BILL','BILL_SECURE','DD'))) {
-            $order->addStatusHistoryComment("Got paid notification");
+            $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Got paid notification"));
         }
 
         self::setState($order,'processing', 'processing');
@@ -209,7 +213,7 @@ class Upg_Payments_Model_Mns
 
     public static function paymentFailed(Mage_Sales_Model_Order $order)
     {
-        $comment = "The payment failed";
+        $comment = Mage::helper('upg_payments')->__("The payment failed");
         $order->setData('state', 'payment_review');
         $order->setStatus('payment_review');
         $order->addStatusHistoryComment($comment);
@@ -218,7 +222,7 @@ class Upg_Payments_Model_Mns
 
     public static function chargeBack(Mage_Sales_Model_Order $order)
     {
-        $comment = "Charge back was done on this order";
+        $comment = Mage::helper('upg_payments')->__("Charge back was done on this order");
         $order->addStatusHistoryComment($comment);
         $order->save();
     }
@@ -226,7 +230,7 @@ class Upg_Payments_Model_Mns
     //cleared
     public static function cleared(Mage_Sales_Model_Order $order)
     {
-        $comment = "Payment was cleared";
+        $comment = Mage::helper('upg_payments')->__("Payment was cleared");
         $order->addStatusHistoryComment($comment);
         $order->save();
     }
@@ -234,7 +238,7 @@ class Upg_Payments_Model_Mns
     public static function inDunning(Mage_Sales_Model_Order $order)
     {
         $order->hold();
-        $comment = "Payment is in dunning";
+        $comment = Mage::helper('upg_payments')->__("Payment is in dunning");
         $order->addStatusHistoryComment($comment);
         $order->save();
     }

@@ -71,8 +71,8 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
         $billing = $quote->getBillingAddress();
         $email = $billing->getEmail();
         if(empty($email))
-        { 
-            $email = $quote->getCustomerEmail(); 
+        {
+            $email = $quote->getCustomerEmail();
         }
         $user = new Person();
         $user->setSalutation($this->mapGenderToSalutation($quote->getCustomerGender()))
@@ -222,6 +222,8 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
 
         $person = $this->getPerson($quote);
         $address = $this->getQuoteAddress($quote->getBillingAddress());
+        $shippingAddress = $this->getQuoteAddress($quote->getShippingAddress());
+        $shippingRecipient = $quote->getShippingAddress()->getFirstname() . ' ' . $quote->getShippingAddress()->getLastname();
 
         $userId = $this->getUserId();
         if($userId === null)
@@ -230,7 +232,6 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
         }
 
         $request
-            ->setUserID($userId)
             ->setOrderID($orderId)
             ->setIntegrationType(CreateTransaction::INTEGRATION_TYPE_HOSTED_BEFORE)
             ->setAutoCapture($this->configHelper->getAutoCapture())//
@@ -241,9 +242,18 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
             ->setUserIpAddress(Mage::helper('core/http')->getRemoteAddr())//Set as current IP
             ->setUserData($person)
             ->setBillingAddress($address)
+            ->setShippingAddress($shippingAddress)
+            ->setShippingRecipient($shippingRecipient)
             ->setLocale($this->localeHelper->getLocaleCode()); //Get from current language set in config
 
         $this->addBusinessDetails($quote, $request);
+        if($request->getUserType() == CreateTransaction::USER_TYPE_PRIVATE)
+        {
+            $request->setUserID($userId.'PRIVATE');
+        }else
+        {
+            $request->setUserID($userId.'BUSINESS');
+        }
 
         $transaction = Mage::getModel('upg_payments/transaction')
             ->setData('order_ref', $orderId)

@@ -128,7 +128,7 @@ Enable auto capture on transactions,Enable auto capture on transactions
 Risk Class,Risk Class
 Risk class for transactions,Risk class for transactions
 Use Product Risk Class,Use Product Risk Class
-Use product risk class setting, however risk class has to be managed on a per product bases,Use product risk class setting, however risk class has to be managed on a per product bases
+"Use product risk class setting, however risk class has to be managed on a per product bases","Use product risk class setting, however risk class has to be managed on a per product bases"
 B2B settings,B2B settings
 Enable B2B transaction,Enable B2B transaction
 Enable B2B transaction if user provides a company name with a company registration id,Enable B2B transaction if user provides a company name with a company registration id
@@ -148,3 +148,19 @@ Logging Toggle,Logging Toggle
 Logging File,Logging File
 API Logging File,API Logging File
 Log Level,Log Level
+accountHolder,Account Holder
+Enable logging,Enable logging
+"Name for general logging file in var/log","Name for general logging file in var/log"
+"Name for the API logging file in var/log","Name for the API logging file in var/log"
+"The level of logging to output to files","The level of logging to output to files"
+"Order canceled due to fraud","Order canceled due to fraud"
+"Extended fraud check being processed","Extended fraud check being processed"
+"Cash in advance is pending","Cash in advance is pending"
+"Got paid notification","Got paid notification"
+"Waiting for capture","Waiting for capture"
+"The payment failed","The payment failed"
+"Charge back was done on this order","Charge back was done on this order"
+"Payment was cleared","Payment was cleared"
+"Payment is in dunning","Payment is in dunning"
+"Prepaid full payment %s","Prepaid full payment %s"
+"Prepaid partial payment %s","Prepaid partial payment %s"

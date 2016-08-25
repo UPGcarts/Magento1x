@@ -7,9 +7,9 @@ class Upg_Payments_Model_SourceModels_RiskClass extends Mage_Eav_Model_Entity_At
     public function toOptionArray()
     {
         return array(
-            array('value' => RiskClass::RISK_CLASS_TRUSTED, 'label' => 'Trusted'),
-            array('value' => RiskClass::RISK_CLASS_DEFAULT, 'label' => 'Default'),
-            array('value' => RiskClass::RISK_CLASS_HIGH, 'label' => 'High'),
+            array('value' => RiskClass::RISK_CLASS_TRUSTED, 'label' => Mage::helper('upg_payments')->__('Trusted')),
+            array('value' => RiskClass::RISK_CLASS_DEFAULT, 'label' => Mage::helper('upg_payments')->__('Default')),
+            array('value' => RiskClass::RISK_CLASS_HIGH, 'label' => Mage::helper('upg_payments')->__('High')),
         );
     }
 
