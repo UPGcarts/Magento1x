@@ -9,8 +9,8 @@ use Upg\Library\Request\Objects\Address;
 /**
  * Class RegisterUser
  * This is the request class for any registerUser and updateUser request object
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/registeruser
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/updateuser
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/registeruser
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/updateuser
  * @package Upg\Library\Request
  */
 class RegisterUser extends AbstractRequest

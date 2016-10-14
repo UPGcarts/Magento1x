@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class GetTransactionStatus
  * Api stub for getTransactionStatus
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getstatus
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getstatus
  * @package Upg\Library\Api
  */
 class GetTransactionStatus extends AbstractApi

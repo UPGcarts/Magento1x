@@ -26,6 +26,14 @@ class Upg_Payments_Model_Mns
                 continue;
             }
 
+            $method = $order->getPayment()->getMethod();
+
+            if($method != "upg_payments") {
+                Mage::helper('upg_payments')->log("Notification will not be processed as order ".$message->getOrderId()." is not processed by upg_payments.");
+                self::markMnsAsFailed($message);
+                continue;
+            }
+
             $processed = false;
             $orderStatusProcess = false;
 
@@ -245,7 +253,12 @@ class Upg_Payments_Model_Mns
 
     public static function cancelled(Mage_Sales_Model_Order $order)
     {
-        $order->cancel();
+        $status = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
+        self::setState($order, $status, $status);
+        if ($order->canCancel()) {
+            $order->cancel();
+            $order->save();
+        }
     }
 
     private static function invoice(Mage_Sales_Model_Order $order)

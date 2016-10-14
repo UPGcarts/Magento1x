@@ -114,6 +114,9 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
         }
     }
 
+    // Gets called to handle 'offsite' payment methods like PayPal.
+    // Gets called after the user returns to the site.
+    // This provides similar functionality to Payment->authorize() but for PayPal rather that CC for example
     public function paymentStatus()
     {
         $transaction = Mage::getModel('upg_payments/transaction')->getCollection()
@@ -154,23 +157,35 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
         $transaction = Mage::getModel('upg_payments/transaction')->getCollection()
             ->addFieldToFilter('order_ref', $this->orderID)
             ->getFirstItem();
-        if($transaction->getId()) {
+        if($transaction->getId()) {  // We've been here before and stored the transaction data
             $recoveryUrl = $transaction->getRecoveryUrl();
-            if(!empty($recoveryUrl)){
+            if(!empty($recoveryUrl)){  // Then we have done at least one recovery
                 //ok set an id so the reserve call will be made
+                // This lets us know that the callback has been called on a recovery
                 $returnParams['transaction'] = urlencode(base64_encode(Mage::helper('core')->encrypt($transaction->getId())));
             }
+            
+            // Clear out the old data
             $transaction->setData('payment_method', $this->paymentMethod)
                 ->setData('payment_instrument_id', $this->paymentInstrumentID)
                 ->setData('redirect_url', '')
                 ->setData('recovery_url', '');
-            
+
+            if(count($this->additionalInformation) > 0){
+                $transaction->setData('additional_information', json_encode($this->additionalInformation));
+            }
+
             $transaction->save();
-        } else {
+        } else {  // Here for the first time
             $transaction = Mage::getModel('upg_payments/transaction')
                 ->setData('order_ref', $this->orderID)
                 ->setData('payment_method', $this->paymentMethod)
                 ->setData('payment_instrument_id', $this->paymentInstrumentID);
+
+            if(count($this->additionalInformation) > 0){
+                $transaction->setData('additional_information', json_encode($this->additionalInformation));
+            }
+
             $transaction->save();
         }
 

@@ -7,7 +7,7 @@ use Upg\Library\Validation\Helper\Constants;
 /**
  * Class PaymentInstrument
  * For paymentInstrument Json objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/payment-instruments
  * @package Upg\Library\Request\Objects
  */
 class PaymentInstrument extends AbstractObject

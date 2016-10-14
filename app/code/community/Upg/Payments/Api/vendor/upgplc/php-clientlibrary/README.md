@@ -4,7 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/7710d14f3d9f4f54bc4cb1892f19cce3)](https://www.codacy.com/app/christine-jamieson/clientlibrary)
 
 PHP Client Library for the UPG API.
-Based on the API Documentation found here: https://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/introduction
+Based on the API Documentation found here: https://documentation.upgplc.com/hostedpagesdraft/en/topic/introduction
 
 ## Current Issues ##
 Currently there are issues with some of the calls these are:

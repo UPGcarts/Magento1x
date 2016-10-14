@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class GetUserPaymentInstrument
  * Api stub for getUserPaymentInstrument call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getuserpaymentinstrument
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getuserpaymentinstrument
  * @package Upg\Library\Api
  */
 class GetUserPaymentInstrument extends AbstractApi

@@ -1,11 +1,11 @@
 PAYMENT_METHOD_CC,Credit Card
 PAYMENT_METHOD_DD,Direct Debit
 PAYMENT_METHOD_CC3D,"Credit Card (3D Secure)"
-PAYMENT_METHOD_PREPAID,Prepaid
+PAYMENT_METHOD_PREPAID,Payment in advance
 PAYMENT_METHOD_PAYPAL,PayPal
 PAYMENT_METHOD_SU,Sofort&uuml;berweisung
-PAYMENT_METHOD_BILL,Bill Payment without payment Guarantee
-PAYMENT_METHOD_BILL_SECURE,Bill Payment with payment Guarantee
+PAYMENT_METHOD_BILL,Bill Payment
+PAYMENT_METHOD_BILL_SECURE,Bill Payment
 PAYMENT_METHOD_COD,Cash On Delivery
 PAYMENT_METHOD_IDEAL,Ideal
 PAYMENT_METHOD_INSTALLMENT,Installment
@@ -13,7 +13,7 @@ PAYMENT_METHOD_PAYCO_WALLET,Payco Wallet
 PAYMENT_METHOD_PAYCO_DUMMY,Dummy
 CC,Credit Card
 DD,Direct Debit
-CC3D,"Credit Card (3D Secure)"
+CC3D,"Credit Card"
 PREPAID,Prepaid
 PAYPAL,PayPal
 SU,Sofort&uuml;berweisung
@@ -67,10 +67,10 @@ deliveryAddressState,Delivery Address State
 deliveryAddressStreet,Delivery Address Street
 deliveryAddressRecipient,Delivery Address Recipient
 deliveryAddressCountry,Delivery Address Country
-Add Currency to Store ID mapping,Add Currency to Store ID mapping
+Add Currency to Store ID mapping,Add Currency to Store ID Mapping
 Currency,Currency
 Store ID,Store ID
-Customer group risk class,Customer group risk class
+Customer group risk class,Customer Group Risk Class
 Customer Group,Customer Group
 Risk Class,Risk Class
 There was an error please contact the merchant,There was an error please contact the merchant
@@ -103,20 +103,20 @@ Company,Company
 Company Registration Id,Company Registration Id
 Company Registration Type,Company Registration Type
 Please wait while we confirm your payment selection,Please wait while we confirm your payment selection
-Upg Payments,Upg Payments
+Upg Payments,UPG Payments
 CefoPay Payments,CefoPay Payments
 Global Settings,Global Settings
 Enabled,Enabled
 Enable or disable the payment method,Enable or disable the payment method
 Payment Method Name,Payment Method Name
-Payment Method Name,Payment Method Name
+Payment Method Name Desc,Payment Method Name
 Payment Method Description,Payment Method Description
 Checkout Description,Checkout Description
 Upload File,Upload File
 Image to show on payment option,Image to show on payment option
 Image to show on payment selection in the cart,Image to show on payment selection in the cart
 Checkout Auto Select,Checkout Auto Select
-Force auto select of payment on checkout if the Upg method is the only one available,Force auto select of payment on checkout if the Upg method is the only one available
+Force auto select of payment on checkout if the Upg method is the only one available,Force auto select of payment on checkout if the UPG method is the only one available
 Merchant ID,Merchant ID
 The merchant identifier for your account,The merchant identifier for your account
 Merchant Key,Merchant Key
@@ -129,30 +129,34 @@ Risk Class,Risk Class
 Risk class for transactions,Risk class for transactions
 Use Product Risk Class,Use Product Risk Class
 "Use product risk class setting, however risk class has to be managed on a per product bases","Use product risk class setting, however risk class has to be managed on a per product bases"
-B2B settings,B2B settings
+B2B Settings,B2B Settings
 Enable B2B transaction,Enable B2B transaction
 Enable B2B transaction if user provides a company name with a company registration id,Enable B2B transaction if user provides a company name with a company registration id
 Show extended B2B fields,Show extended B2B fields
 Show the extend b2b on the checkout,Show the extend b2b on the checkout
 Show Company Registration type,Show Company Registration type
-Show Company Registration type on checkout,Show Company Registration type on checkout
+Show Company Registration type on checkout,Show company registration type on checkout
 Store Settings,Store Settings
 Currency to Store ID Mapping,Currency to Store ID Mapping
-Map your Upg store to your Magento currency,Map your Upg store to your Magento currency
+Map your store to your Magento currency,Map your store to your Magento currency
+Map your Upg store to your Magento currency,Map your UPG store to your Magento currency
 Map your Crefo store to your Magento currency,Map your Crefo store to your Magento currency
 Customer Settings,Customer Settings
-Customer Risk class mapping,Customer Risk class mapping
+Customer Risk Class Mapping,Customer Risk Class Mapping
 Map customer groups to a given risk class,Map customer groups to a given risk class
-Logging and Debug,Logging and Debug
-Logging Toggle,Logging Toggle
-Logging File,Logging File
-API Logging File,API Logging File
+Log Settings,Log Settings
+Enable Logging,Enable Logging
+Enable logging,Enable logging. This can be very useful in case of troubleshooting.
+Log File,Log File
+API Log File,API Log File
 Log Level,Log Level
+Name for general log file in var/log,Name for general log file in var/log
+Name for the API log file in var/log,Name for the API log file in var/log
+The log level to output in logfile,"Define the log level here"
 accountHolder,Account Holder
-Enable logging,Enable logging
-"Name for general logging file in var/log","Name for general logging file in var/log"
-"Name for the API logging file in var/log","Name for the API logging file in var/log"
 "The level of logging to output to files","The level of logging to output to files"
+"Yes","Yes"
+"No","No"
 "Order canceled due to fraud","Order canceled due to fraud"
 "Extended fraud check being processed","Extended fraud check being processed"
 "Cash in advance is pending","Cash in advance is pending"
@@ -164,3 +168,23 @@ Enable logging,Enable logging
 "Payment is in dunning","Payment is in dunning"
 "Prepaid full payment %s","Prepaid full payment %s"
 "Prepaid partial payment %s","Prepaid partial payment %s"
+"Invoice Settings","Invoice Settings"
+"Add Invoice Information to Bill Transactions","Add Invoice Information to Bill Transactions"
+"Payment Target (days)","Payment Target (days)"
+"The due date for any bill payment defaults to 30 days after the invoice creation date. The payment target days are then added to this amount to give the final due date. For example; a payment target of 10 days would give a due date of 40 days after the invoice creation date.","The due date for any bill payment defaults to 30 days after the invoice creation date. The payment target days are then added to this amount to give the final due date. For example; a payment target of 10 days would give a due date of 40 days after the invoice creation date."
+Payment iframe Dimensions Desktop,Payment iframe Dimensions Desktop
+Units,Units
+Select the units used for width and height,Select the units used for width and height
+Width,Width
+Select the width of the iframe,Select the width of the iframe
+Height,Height
+Select the height of the iframe,Select the height of the iframe
+Automatically set iframe size,Automatically set iframe size
+Overrides width and height settings to be 800x600 px,Overrides width and height settings to be 800x600 px
+Payment iframe Dimensions Mobile,Payment iframe Dimensions Mobile
+Set maximum browser width to be considered a mobile browser (px),Set maximum browser width to be considered a mobile browser (px)
+All devices with a width smaller than or equal to this value will get an iframe which takes up 100% of the screen,All devices with a width smaller than or equal to this value will get an iframe which takes up 100% of the screen
+General,General
+Wholesale,Wholesale
+VIP Member,VIP Member
+Private Sales Member,Private Sales Member

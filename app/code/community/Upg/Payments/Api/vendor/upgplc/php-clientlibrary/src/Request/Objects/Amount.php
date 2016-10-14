@@ -5,7 +5,7 @@ namespace Upg\Library\Request\Objects;
 /**
  * Class Amount
  * For the Amount json objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/amounts
  * @package Upg\Library\Request\Objects
  */
 class Amount extends AbstractObject

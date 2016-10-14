@@ -17,7 +17,7 @@
             <block type="upg_payments/javascriptConfig" name="upg_config" as="upg_config" />
         </reference>
         <reference name="before_body_end">
-            <block type="core/template" name="upg_js_overwrite" template="upg/checkout/onepage/upg.phtml" />
+            <block type="upg_payments/payment_jsOverwrite" name="upg_js_overwrite" template="upg/checkout/onepage/upg.phtml" />
         </reference>
         <reference name="checkout.onepage.billing">
             <action ifconfig="payment/upg/enabled" method="setTemplate">

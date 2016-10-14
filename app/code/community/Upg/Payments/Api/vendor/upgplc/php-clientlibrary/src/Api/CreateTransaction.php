@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class CreateTransaction
  * API stub for the CreateTransaction call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/capture
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/createtransaction
  * @package Upg\Library\Api
  */
 class CreateTransaction extends AbstractApi

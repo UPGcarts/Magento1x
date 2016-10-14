@@ -9,7 +9,7 @@ use Upg\Library\Request\Objects\BasketItem;
 /**
  * Class Cancel
  * This is the request class for any Cancel request
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/cancel
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/cancel
  * @package Upg\Library\Request
  */
 class Cancel extends AbstractRequest

@@ -7,7 +7,7 @@ namespace Upg\Library\Request;
  * Input data consist of the following:
  * User information (existing user-id or complete user data)
  * Payment information (existing payment instrument-id or payment instrument data)
- * @see http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/deletepaymentinstrumentofuser
+ * @see https://documentation.upgplc.com/hostedpagesdraft/en/topic/deletepaymentinstrumentofuser
  * @package Upg\Library\Request
  */
 class DeleteUserPaymentInstrument extends AbstractRequest

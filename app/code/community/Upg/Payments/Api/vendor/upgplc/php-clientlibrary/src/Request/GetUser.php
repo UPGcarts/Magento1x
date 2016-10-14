@@ -6,7 +6,7 @@ namespace Upg\Library\Request;
  * The getUserData call adds the functionality to get the data and the status of a user.
  * Future functionality of this call will include delivery of risk level. Input data consist of the following:
  * User information (existing user-id or complete user data)
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getuserstatus
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getuserstatus
  * @package Upg\Library\Request
  */
 class GetUser extends AbstractRequest

@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class GetUser
  * APi stub for the getUserData method
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getuserstatus
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getuserstatus
  * @package Upg\Library\Api
  */
 class GetUser extends AbstractApi

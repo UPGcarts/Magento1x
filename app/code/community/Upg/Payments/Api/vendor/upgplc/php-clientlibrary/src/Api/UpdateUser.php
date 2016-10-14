@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class UpdateUser
  * API stub for updateUser
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/updateuser
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/updateuser
  * @package Upg\Library\Api
  */
 class UpdateUser extends AbstractApi

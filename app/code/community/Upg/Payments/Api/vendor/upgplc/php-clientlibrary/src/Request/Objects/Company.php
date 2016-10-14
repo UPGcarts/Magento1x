@@ -7,7 +7,7 @@ use Upg\Library\Validation\Helper\Constants as Constants;
 /**
  * Class Company
  * For company json objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/company
  * @package Upg\Library\Request\Objects
  */
 class Company extends AbstractObject

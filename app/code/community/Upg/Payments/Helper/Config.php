@@ -173,4 +173,15 @@ class Upg_Payments_Helper_Config extends Mage_Core_Helper_Abstract
         $target = $this->getConfigValue('log_level', $storeId);
         return (!empty($target)) ? $target : LogLevel::ERROR;
     }
+
+    public function getPaymentTarget($storeId = null)
+    {
+        $paymentTarget = $this->getConfigValue('payment_target', $storeId);
+        return empty($paymentTarget) ? 0 : $paymentTarget;
+    }
+
+    public function getUpdateTransactionEnabled($storeId = null)
+    {
+        return $this->getConfigValue('update_transaction_enabled', $storeId);
+    }
 }

@@ -5,7 +5,7 @@ namespace Upg\Library\Request;
 /**
  * Class Finish
  * This is the request class for any finish request object
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/finish
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/finish
  * @package Upg\Library\Request
  */
 class Finish extends AbstractRequest

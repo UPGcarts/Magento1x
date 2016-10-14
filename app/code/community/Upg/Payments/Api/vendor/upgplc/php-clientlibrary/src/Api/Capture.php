@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class Capture
  * The API stub for the capture call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/capture
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/capture
  * @package Upg\Library\Api
  */
 class Capture extends AbstractApi

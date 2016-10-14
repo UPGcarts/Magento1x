@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class GetCaptureStatus
  * The API stub method for the getCaptureStatus call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getcapturestatus
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getcapturestatus
  * @package Upg\Library\Api
  */
 class GetCaptureStatus extends AbstractApi

@@ -8,7 +8,7 @@ use Upg\Library\Validation\Helper\Regex;
 /**
  * Class BasketItem
  * For basketItem json objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/basket
  * @package Upg\Library\Request\Objects
  */
 class BasketItem extends AbstractObject

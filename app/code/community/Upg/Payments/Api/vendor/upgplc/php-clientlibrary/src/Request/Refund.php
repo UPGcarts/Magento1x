@@ -8,7 +8,7 @@ use Upg\Library\Request\Objects\Amount;
 /**
  * Class Refund
  * This is the request class for any refund request object
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/refund
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/refund
  * @package Upg\Library\Request
  */
 class Refund extends AbstractRequest

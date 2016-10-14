@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class Refund
  * Stub method for the refund call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getuserpaymentinstrument
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/refund
  * @package Upg\Library\Api
  */
 class Refund extends AbstractApi

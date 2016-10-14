@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class Cancel
  * ApiStub for the cancel call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/cancel
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/cancel
  * @package Upg\Library\Api
  */
 class Cancel extends AbstractApi

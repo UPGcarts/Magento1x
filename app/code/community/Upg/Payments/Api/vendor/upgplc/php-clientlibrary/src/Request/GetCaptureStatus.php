@@ -6,7 +6,7 @@ use Upg\Library\PaymentMethods\Methods as PaymentMethods;
 /**
  * Class GetCaptureStatus
  * This is the request class for any getCaptureStatus request object
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getcapturestatus
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getcapturestatus
  * @package Upg\Library\Request
  */
 class GetCaptureStatus extends AbstractRequest

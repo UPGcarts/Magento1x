@@ -16,10 +16,11 @@ class Upg_Payments_Block_Adminhtml_Form_Field_Riskclass extends Mage_Core_Block_
 
     public function _toHtml()
     {
+        $helper = Mage::helper('upg_payments');
         $this->setName($this->getInputName());
         if (!$this->getOptions()) {
             foreach ($this->_getRiskClasses() as $option) {
-                $this->addOption($option['value'], addslashes($option['label']));
+                $this->addOption($option['value'], $helper->__(addslashes($option['label'])));
             }
         }
         return parent::_toHtml();

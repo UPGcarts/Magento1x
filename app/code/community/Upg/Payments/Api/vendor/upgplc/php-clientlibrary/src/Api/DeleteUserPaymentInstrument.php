@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class DeleteUserPaymentInstrument
  * The API stub method for for the deleteUserPaymentInstrument call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/deletepaymentinstrumentofuser
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/deletepaymentinstrumentofuser
  * @package Upg\Library\Api
  */
 class DeleteUserPaymentInstrument extends AbstractApi

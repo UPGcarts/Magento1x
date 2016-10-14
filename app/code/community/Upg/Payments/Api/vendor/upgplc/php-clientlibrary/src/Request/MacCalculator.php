@@ -33,8 +33,15 @@ class MacCalculator extends AbstractCalculator
     public function setRequest(AbstractRequest $request)
     {
         $data = array();
+        $fields = $request->getSerializerData();
+        $excluded = $request->getExcludedMacFields();
+        foreach($excluded as $value) {
+            if (isset($fields[$value])) {
+                unset($fields[$value]);
+            }
+        }
         /**Serialize the any sub objects**/
-        foreach ($request->getSerializerData() as $key => $value) {
+        foreach ($fields as $key => $value) {
             if ($this->needsToBeSerialized($value)) {
                 $data[$key] = $this->serializer->serialize($value);
             } else {

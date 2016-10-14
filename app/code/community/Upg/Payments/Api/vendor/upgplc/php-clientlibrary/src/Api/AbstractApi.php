@@ -20,12 +20,14 @@ use Upg\Library\Validation\Validation;
 /**
  * Class AbstractApi
  * Abstarct class which will implement the call out code for the api classes
+ *
  * @package Upg\Library\Api
  */
 abstract class AbstractApi
 {
     /**
      * The config object
+     *
      * @var Config
      */
     protected $config;
@@ -34,30 +36,35 @@ abstract class AbstractApi
 
     /**
      * Raw Response string
+     *
      * @var string
      */
     protected $responseRaw;
 
     /**
      * The raw header
+     *
      * @var string
      */
     protected $headerRaw;
 
     /**
      * The raw serialized request
+     *
      * @var string|array
      */
     protected $requestRaw;
 
     /**
      * Raw Response http status code
+     *
      * @var string
      */
     protected $responseHttpCode;
 
     /**
      * The request to be sent
+     *
      * @var AbstractRequest
      */
     protected $request;
@@ -108,6 +115,7 @@ abstract class AbstractApi
      * 200
      * 400 (Bad Request) If there is a problem with the content of the request
      * 401 (Unauthorized) validation errors
+     *
      * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/genera-rules
      */
     protected $allowedHttpStatusCodes = array(200, 400, 401);
@@ -119,12 +127,14 @@ abstract class AbstractApi
 
     /**
      * This abstract method should return full url to the API endpoint for the request.
+     *
      * @return string
      */
     abstract public function getUrl();
 
     /**
      * Construct the API sender class
+     *
      * @param Config $config
      */
     public function __construct(Config $config)
@@ -134,14 +144,15 @@ abstract class AbstractApi
             $this->submitType = self::SUBMIT_TYPE_URL_ENCODE;
         }
 
-        $this->logger = \Upg\Library\Logging\Factory::getLogger($config, $config->getLogLocationRequest());
-        $this->timeLoggerValue = md5(time().':'.rand());
+        $this->logger          = \Upg\Library\Logging\Factory::getLogger($config, $config->getLogLocationRequest());
+        $this->timeLoggerValue = md5(time() . ':' . rand());
 
         return $this;
     }
 
     /**
      * Conveience method to get base url for requests
+     *
      * @return string
      */
     protected function getBaseUrl()
@@ -152,14 +163,16 @@ abstract class AbstractApi
     /**
      * This method combines the url with the uri. It also ensure double slashes are avoided
      * when the combine is done
+     *
      * @param $baseUrl Base url should be set from the config
-     * @param $uri Uri of the api call
+     * @param $uri     Uri of the api call
+     *
      * @return string
      */
     protected function combineUrlUri($baseUrl, $uri)
     {
         $baseUrl = ltrim(rtrim($baseUrl));
-        $uri = ltrim(rtrim($uri));
+        $uri     = ltrim(rtrim($uri));
 
         if (substr($baseUrl, -1) == '/') {
             $baseUrl = rtrim($baseUrl, '/');
@@ -175,6 +188,7 @@ abstract class AbstractApi
 
     /**
      * Send the request to the api end point and get the response
+     *
      * @return SuccessResponse
      * @throws ApiError
      * @throws CurlError
@@ -186,7 +200,7 @@ abstract class AbstractApi
     public function sendRequest()
     {
         $timeStart = microtime(true);
-        $this->logger->debug("timelog-".$this->timeLoggerValue."--Started request: ".get_class($this->request));
+        $this->logger->debug("timelog-" . $this->timeLoggerValue . "--Started request: " . get_class($this->request));
         if (!$this->request instanceof AbstractRequest) {
             $this->logger->error("Request is not set or is not an AbstractRequest it is: " . get_class($this->request));
             throw new RequestNotSet();
@@ -197,7 +211,7 @@ abstract class AbstractApi
             $this->processRequest();
         }
         $timeEnd = microtime(true);
-        $this->logger->debug("timelog-".$this->timeLoggerValue."--Process Request: ".($timeEnd - $timeStart));
+        $this->logger->debug("timelog-" . $this->timeLoggerValue . "--Process Request: " . ($timeEnd - $timeStart));
         $timeStart = microtime(true);
 
         if (!$this->responseRaw) {
@@ -205,7 +219,7 @@ abstract class AbstractApi
         }
 
         $timeEnd = microtime(true);
-        $this->logger->debug("timelog-".$this->timeLoggerValue."--Sent Request: ".($timeEnd - $timeStart));
+        $this->logger->debug("timelog-" . $this->timeLoggerValue . "--Sent Request: " . ($timeEnd - $timeStart));
         $timeStart = microtime(true);
 
         return $this->processResponse();
@@ -226,8 +240,8 @@ abstract class AbstractApi
         }
 
         $this->getMacCalculatorResponse()
-            ->setResponse($this->responseRaw, $this->headerRaw)
-            ->validateResponse();
+             ->setResponse($this->responseRaw, $this->headerRaw)
+             ->validateResponse();
 
         $data = json_decode($this->responseRaw, true);
         $data = $this->getUnserializer()->topLevelUnserialize($data);
@@ -242,13 +256,14 @@ abstract class AbstractApi
         }
 
         $timeEnd = microtime(true);
-        $this->logger->debug("timelog-".$this->timeLoggerValue."--Processed Request: ".($timeEnd - $timeStart));
+        $this->logger->debug("timelog-" . $this->timeLoggerValue . "--Processed Request: " . ($timeEnd - $timeStart));
 
         return $response;
     }
 
     /**
      * Process the request
+     *
      * @throws Exception\Validation
      * @throws InvalidUrl
      * @throws \Upg\Library\Serializer\Exception\VisitorCouldNotBeFound
@@ -278,6 +293,7 @@ abstract class AbstractApi
 
     /**
      * Send the curl request
+     *
      * @throws CurlError
      */
     private function postData()
@@ -293,21 +309,22 @@ abstract class AbstractApi
             $this->curlSetFileUploadOptions($ch);
         }
 
-        if(is_string($this->requestRaw)){
+        if (is_string($this->requestRaw)) {
             $this->logger->debug('Sending following raw request to ' . $this->url . ' : ' . $this->requestRaw);
-        }else {
-            $this->logger->debug('Sending following raw request to ' . $this->url . ' : ' . serialize($this->requestRaw));
+        } else {
+            $this->logger->debug('Sending following raw request to ' . $this->url . ' : '
+                . serialize($this->requestRaw));
         }
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->requestRaw);
 
         $result = curl_exec($ch);
 
-        $curlFileTime = curl_getinfo($ch,CURLINFO_FILETIME);
-        $curlTotalTime = curl_getinfo($ch,CURLINFO_TOTAL_TIME);
+        $curlFileTime  = curl_getinfo($ch, CURLINFO_FILETIME);
+        $curlTotalTime = curl_getinfo($ch, CURLINFO_TOTAL_TIME);
 
-        $this->logger->debug("timelog-".$this->timeLoggerValue."--Curl Time FileTime: ".$curlFileTime);
-        $this->logger->debug("timelog-".$this->timeLoggerValue."--Curl Time TotalTime: ".$curlTotalTime);
+        $this->logger->debug("timelog-" . $this->timeLoggerValue . "--Curl Time FileTime: " . $curlFileTime);
+        $this->logger->debug("timelog-" . $this->timeLoggerValue . "--Curl Time TotalTime: " . $curlTotalTime);
 
         if (curl_errno($ch) > 0) {
             $this->logger->error("Got the following curl error: " . curl_error($ch) . ' ' . curl_errno($ch));
@@ -317,46 +334,35 @@ abstract class AbstractApi
 
         $this->responseHttpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        $this->headerRaw = substr($result, 0, $headerSize);
+        $headerSize        = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+        $this->headerRaw   = substr($result, 0, $headerSize);
         $this->responseRaw = substr($result, $headerSize);
 
         curl_close($ch);
     }
 
     /**
-     * Set the curl options approriately for multipart encoded forms
+     * Set the curl options appropriately for multipart encoded forms
+     *
      * @param $ch
      */
     private function curlSetFileUploadOptions($ch)
     {
         /**
          * Api says for any multipart request the header must be set to multipart/form-data
+         *
          * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/updatetransactiondata
          */
-        curl_setopt(
-            $ch,
-            CURLOPT_HTTPHEADER,
-            array(
-                'Content-Type: multipart/form-data'
-            )
-        );
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
 
         /**
          * For php 5.5 and above use curl_file_create
          */
         if (PHP_VERSION_ID >= self::CURL_FILE_VERSION) {
-            $files = array();
             foreach ($this->requestRaw as $key => $value) {
-                if (strpos($value, 'FILE::') === 0) {
-                    $file = str_replace('FILE::', '', $this->requestRaw[$key]);
-                    $this->requestRaw[$key] = curl_file_create($file, '', $key);
-                }
-            }
-        } else {
-            foreach ($this->requestRaw as $key => $value) {
-                if (strpos($value, 'FILE::') === 0) {
-                    $this->requestRaw[$key] = str_replace('FILE::', '@', $this->requestRaw[$key]);
+                if (strpos($value, '@') === 0) {
+                    $file                   = str_replace('@', '', $this->requestRaw[$key]);
+                    $this->requestRaw[$key] = curl_file_create($file, 'application/pdf', $key);
                 }
             }
         }
@@ -365,6 +371,7 @@ abstract class AbstractApi
 
     /**
      * Get the serializer
+     *
      * @return \Upg\Library\Serializer\Serializer
      */
     public function getSerializer()
@@ -378,6 +385,7 @@ abstract class AbstractApi
 
     /**
      * Get unserializer
+     *
      * @return \Upg\Library\Response\Unserializer\Processor
      */
     private function getUnserializer()
@@ -391,6 +399,7 @@ abstract class AbstractApi
 
     /**
      * Get the Mac calculator for the response
+     *
      * @return \Upg\Library\Api\MacCalculator
      */
     private function getMacCalculatorResponse()
@@ -404,6 +413,7 @@ abstract class AbstractApi
 
     /**
      * Get the Mac calculator for the request
+     *
      * @return MacCalculator
      */
     private function getMacCalculator()
@@ -411,11 +421,13 @@ abstract class AbstractApi
         if (!$this->macCalculator) {
             $this->macCalculator = new MacCalculator();
         }
+
         return $this->macCalculator;
     }
 
     /**
      * Get validator
+     *
      * @return Validation
      */
     private function getValidator()
@@ -429,6 +441,7 @@ abstract class AbstractApi
 
     /**
      * Get any raw responses as string if availible
+     *
      * @return string
      */
     public function getResponseRaw()
@@ -438,22 +451,26 @@ abstract class AbstractApi
 
     /**
      * Please note this method is for the unit tests to pass in mock responses for tests
+     *
      * @param $responseRaw
      * @param $httpCode
+     *
      * @return $this
      */
     public function setResponseRaw($responseRaw, $httpCode, $header = '')
     {
-        $this->responseRaw = $responseRaw;
+        $this->responseRaw      = $responseRaw;
         $this->responseHttpCode = $httpCode;
-        $this->headerRaw = $header;
+        $this->headerRaw        = $header;
 
         return $this;
     }
 
     /**
      * Validate the url before sending the request
+     *
      * @param $url
+     *
      * @return mixed
      * @throws InvalidUrl
      */

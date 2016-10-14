@@ -5,7 +5,7 @@ namespace Upg\Library\Request\Objects;
 /**
  * Class Person
  * for person Json Object
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/natural-person
  * @package Upg\Library\Request\Objects
  */
 class Person extends AbstractObject

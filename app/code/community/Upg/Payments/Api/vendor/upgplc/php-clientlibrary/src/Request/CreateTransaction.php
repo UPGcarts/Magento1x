@@ -15,7 +15,7 @@ use Upg\Library\Validation\Helper\Constants;
 /**
  * Class CreateTransaction
  * This is the request class for any CreateTransaction request
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/gettransactionpaymentmethod
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/createtransaction
  * @package Upg\Library\Request
  */
 class CreateTransaction extends AbstractRequest
@@ -24,7 +24,7 @@ class CreateTransaction extends AbstractRequest
      * Integration type: API
      * PayCo is integrated as pure API solution. No hosted pages are used. To transfer credit card data the merchant
      * has to be PCI compliant or he hasto use the PayCoBridge to transfer the data.
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/gettransactionpaymentmethod
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/integrationsmoglichkeiten
      */
     const INTEGRATION_TYPE_API = "API";
 
@@ -33,7 +33,7 @@ class CreateTransaction extends AbstractRequest
      * The hosted payment method selection page is integrated before the confirmation page of the merchant is shown.
      * The hosted page allows the user the select a payment method and enter payment instruments like credit card and
      * bank account.
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/gettransactionpaymentmethod
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/integrationsmoglichkeiten
      */
     const INTEGRATION_TYPE_HOSTED_BEFORE = "HostedPageBefore";
 
@@ -42,7 +42,7 @@ class CreateTransaction extends AbstractRequest
      * The hosted payment method selection page is integrated after the confirmation page of the merchant is shown.
      * The hosted page allows the user the select a payment method and enter payment instruments like credit card and
      * bank account.
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/gettransactionpaymentmethod
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/integrationsmoglichkeiten
      */
     const INTEGRATION_TYPE_HOSTED_AFTER = "HostedPageAfter";
 

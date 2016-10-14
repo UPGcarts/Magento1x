@@ -10,7 +10,7 @@ use Upg\Library\Request\Attributes\ObjectArray;
 /**
  * Class CreateTransaction
  * This is the request class for any reserve request
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/reserve
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/reserve
  * @package Upg\Library\Request
  */
 class Reserve extends AbstractRequest
@@ -25,7 +25,7 @@ class Reserve extends AbstractRequest
     /**
      * The PaymentMethod that should be used
      * @see \Upg\Library\PaymentMethods\Methods
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      * @var string
      */
     private $paymentMethod;
@@ -56,6 +56,12 @@ class Reserve extends AbstractRequest
      * @var string
      */
     private $cvv;
+
+    /**
+     * A json string with any aditional information that needs to be sent to the reserve call
+     * @var string
+     */
+    private $additionalInformation;
 
     /**
      * Set the Order ID
@@ -194,6 +200,26 @@ class Reserve extends AbstractRequest
     }
 
     /**
+     * Get json string with the set additional data
+     * @return string
+     */
+    public function getAdditionalInformation()
+    {
+        return $this->additionalInformation;
+    }
+
+    /**
+     * Set json string with the set additional data
+     * @param $additionalInformation
+     * @return $this
+     */
+    public function setAdditionalInformation($additionalInformation)
+    {
+        $this->additionalInformation = $additionalInformation;
+        return $this;
+    }
+
+    /**
      * Get the serializer data
      * @return array
      */
@@ -210,6 +236,10 @@ class Reserve extends AbstractRequest
 
         if (!empty($this->amount)) {
             $data['amount'] = $this->getAmount();
+        }
+
+        if (!empty($this->additionalInformation)) {
+            $data['additionalInformation'] = $this->getAdditionalInformation();
         }
 
         if (!empty($this->cvv)) {

@@ -8,7 +8,7 @@ use Upg\Library\Validation\Helper\Constants;
 /**
  * Class CompanyMember
  * For CompanyMember Json objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @deprecated No longer used.
  * @package Upg\Library\Request\Objects
  */
 class CompanyMember extends AbstractObject

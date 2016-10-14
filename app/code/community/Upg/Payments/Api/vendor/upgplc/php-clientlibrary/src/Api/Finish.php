@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class Finish
  * API stub for the finish call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/finish
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/finish
  * @package Upg\Library\Api
  */
 class Finish extends AbstractApi

@@ -9,7 +9,7 @@ use Upg\Library\Request\Objects\BasketItem;
 /**
  * Class Capture
  * This is the request class for any capture request
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/capture
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/capture
  * @package Upg\Library\Request
  */
 class Capture extends AbstractRequest

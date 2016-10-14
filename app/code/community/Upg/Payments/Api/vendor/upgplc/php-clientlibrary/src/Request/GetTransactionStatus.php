@@ -6,7 +6,7 @@ use Upg\Library\PaymentMethods\Methods as PaymentMethods;
 /**
  * Class GetTransactionStatus
  * This is the request class for any getTransactionStatus request object
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/getstatus
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/getstatus
  * @package Upg\Library\Request
  */
 class GetTransactionStatus extends AbstractRequest

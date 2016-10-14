@@ -100,20 +100,18 @@ class Upg_Payments_Model_Payment extends Mage_Payment_Model_Method_Abstract
 
     public function capture(Varien_Object $payment, $amount)
     {
-        //setParentTransactionId
         $order = $payment->getOrder();
-
         $autocaptureFlag = Mage::registry('payco_autocaptue_invoice');
-
-        if($autocaptureFlag == $order->getIncrementId()) {
+        if ($autocaptureFlag == $order->getIncrementId()) {
             //lets simulate a online capture so refund can work
             //setting the transaction id to the order increment id
-            $payment->setTransactionId($order->getIncrementId());
-        }else {
-            $payment->setTransactionId($order->getIncrementId().':'.time());
+            $payment->setTransactionId($order->getUpgPaymentsUtInvoiceId());
+        } else {
+            $payment->setTransactionId($order->getUpgPaymentsUtInvoiceId());
             //now do the call
             $request = Mage::helper('upg_payments/transaction')->getCaptureTransaction($order,
                 $payment->getTransactionId(), $amount);
+            // Response error code isn't checked as an exception will be thrown
             $response = Mage::helper('upg_payments/transaction')->sendCaptureTransaction($request, $order);
         }
 

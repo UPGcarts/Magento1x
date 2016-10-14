@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class Reserve
  * API stub for the reserve method
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/reserve
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/reserve
  * @package Upg\Library\Api
  */
 class Reserve extends AbstractApi

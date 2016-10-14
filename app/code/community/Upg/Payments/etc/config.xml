@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Upg_Payments>
-            <version>0.1.8</version>
+            <version>0.1.17</version>
         </Upg_Payments>
     </modules>
 
@@ -106,6 +106,9 @@
                     <mns_message>
                         <table>upg_payments_mns_messages</table>
                     </mns_message>
+                    <update_transaction>
+                        <table>upg_payments_update_transaction</table>
+                    </update_transaction>
                 </entities>
             </upg_payments_resource>
         </models>
@@ -145,6 +148,17 @@
                 </upg_company_registration_type>
             </customer_address>
         </fieldsets>
+        <events>
+            <sales_order_payment_capture>
+                <observers>
+                    <upg_payments>
+                        <type>singleton</type>
+                        <class>upg_payments/observer</class>
+                        <method>addInvoiceToUpdateTransactionTable</method>
+                    </upg_payments>
+                </observers>
+            </sales_order_payment_capture>
+        </events>
     </global>
 
     <default>
@@ -163,6 +177,14 @@
                     <live>https://www.pay-co.net/2.0</live>
                     <test>https://sandbox.upgplc.com/2.0</test>
                 </service_urls>
+                <payment_iframe_dimensions_units>px</payment_iframe_dimensions_units>
+                <payment_iframe_dimensions_width>0</payment_iframe_dimensions_width>
+                <payment_iframe_dimensions_height>0</payment_iframe_dimensions_height>
+                <payment_iframe_dimensions_fit_to_width_desktop>1</payment_iframe_dimensions_fit_to_width_desktop>
+                <payment_iframe_dimensions_max_mobile_browser_width>450</payment_iframe_dimensions_max_mobile_browser_width>
+                <payment_iframe_dimensions_fit_to_width_mobile>1</payment_iframe_dimensions_fit_to_width_mobile>
+                <payment_target>0</payment_target>
+                <update_transaction_enabled>1</update_transaction_enabled>
             </upg>
         </payment>
     </default>
@@ -170,13 +192,31 @@
         <jobs>
             <upg_mns_process>
                 <schedule>
+                    <!-- Run every 5 mins -->
                     <cron_expr>*/5 * * * *</cron_expr>
                 </schedule>
                 <run>
                     <model>upg_payments/Mns::process</model>
                 </run>
             </upg_mns_process>
+            <upg_update_transaction>
+                <schedule>
+                    <!-- Run every 5 mins -->
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>upg_payments/UpdateTransaction::process</model>
+                </run>
+            </upg_update_transaction>
+            <upg_removeoldpds>
+                <schedule>
+                    <!-- Run at 2am every day -->
+                    <cron_expr>0 2 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>upg_payments/UpdateTransaction::removeOldPDFs</model>
+                </run>
+            </upg_removeoldpds>
         </jobs>
     </crontab>
-
 </config>

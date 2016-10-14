@@ -5,7 +5,7 @@ use Upg\Library\Config;
 
 /**
  * Class UpdateTransaction
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/updatetransactiondata
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/updatetransaction
  * @package Upg\Library\Api
  */
 class UpdateTransaction extends AbstractApi
@@ -13,7 +13,7 @@ class UpdateTransaction extends AbstractApi
     /**
      * URI for the updateTransaction call
      */
-    const UPDATE_TRANSACTION_PATH = 'capture';
+    const UPDATE_TRANSACTION_PATH = 'updateTransaction';
 
     /**
      * Constructor

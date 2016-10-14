@@ -75,26 +75,22 @@ class Upg_Payments_PaymentController extends Mage_Core_Controller_Front_Action
      */
     public function confirmAction()
     {
-
-
-        $this->loadLayout();
-        $this->renderLayout();
-
-        return;
-
         $redirectUrl = '';
         $transactionIdEncrypted = $this->getRequest()->getParam('transaction');
-        if(!empty($transactionIdEncrypted)) {
+        if(!empty($transactionIdEncrypted)) {  // We know this is a recovery
             $transactionId = Mage::helper('core')->decrypt(base64_decode($transactionIdEncrypted));
             //make the reserve call as we are recovering this transaction
             $transaction = Mage::getModel('upg_payments/transaction')->load($transactionId);
-            if($transaction->getId()) {
+            if($transaction->getId()) {  // Make sure the transaction actually exists
+                //ok if we get a transaction reference at this point we are on a recovery so the reserve needs to be
+                // called again to process the next chosen method
                 $order = Mage::getModel('sales/order')->loadByIncrementId($transaction->getOrderRef());
                 $request = Mage::helper('upg_payments/transaction')->reserveTransaction($order, $transaction);
                 Mage::helper('upg_payments/transaction')->sendReserveTransaction($request, $transaction, $order);
+                // IF no redirect URL is returned then we know that the reserve has been fully completed
                 $redirectUrl = $transaction->getRedirectUrl();
                 if(empty($redirectUrl)) {
-                   //ok we got no redirect url back
+                   //ok we got no redirect url back so payment is processed send them to the user
                     $orderArg = urlencode(base64_encode(Mage::helper('core')->encrypt($order->getId())));
                     $redirectUrl = Mage::getUrl('paymentmodule/payment/complete', array('_secure'=>TRUE,'order'=>$orderArg));
                 }

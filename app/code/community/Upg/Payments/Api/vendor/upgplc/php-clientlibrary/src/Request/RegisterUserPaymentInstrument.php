@@ -9,6 +9,7 @@ use Upg\Library\Request\Objects\PaymentInstrument;
  * Input data consist of the following:
  * User information (existing user-id or complete user data)
  * Payment information (existing payment instrument-id or payment instrument data)
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/registerpaymentinstrument
  * @package Upg\Library\Request
  */
 class RegisterUserPaymentInstrument extends AbstractRequest

@@ -64,6 +64,11 @@ abstract class AbstractRequest implements RequestInterface
         return 'urlencode';
     }
 
+    public function getExcludedMacFields()
+    {
+        return array();
+    }
+
     /**
      * T
      * @see AbstractRequest::getPreSerializerData

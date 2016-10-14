@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "monolog/monolog",
-            "version": "1.17.2",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24"
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
-                "reference": "bee7f0dc9c3e0b69a6039697533dca1e845c8c24",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
                 "shasum": ""
             },
             "require": {
@@ -33,13 +33,13 @@
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
                 "jakub-onderka/php-parallel-lint": "0.9",
+                "php-amqplib/php-amqplib": "~2.4",
                 "php-console/php-console": "^3.1.3",
                 "phpunit/phpunit": "~4.5",
                 "phpunit/phpunit-mock-objects": "2.3.0",
                 "raven/raven": "^0.13",
                 "ruflin/elastica": ">=0.90 <3.0",
-                "swiftmailer/swiftmailer": "~5.3",
-                "videlalvaro/php-amqplib": "~2.4"
+                "swiftmailer/swiftmailer": "~5.3"
             },
             "suggest": {
                 "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
@@ -47,16 +47,17 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+                "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
                 "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "raven/raven": "Allow sending log messages to a Sentry server",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-                "videlalvaro/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib"
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -82,7 +83,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-10-14 12:51:02"
+            "time": "2016-04-12 18:29:35"
         },
         {
             "name": "psr/log",
@@ -90,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+                "reference": "607ce1d4005af32dd866c4a402459494c168d555"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
-                "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/607ce1d4005af32dd866c4a402459494c168d555",
+                "reference": "607ce1d4005af32dd866c4a402459494c168d555",
                 "shasum": ""
             },
             "require": {
@@ -129,7 +130,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-01-06 21:40:42"
+            "time": "2016-09-25 13:41:54"
         },
         {
             "name": "siriusphp/validation",
@@ -137,12 +138,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/siriusphp/validation.git",
-                "reference": "84299472049b728f7ea769cb44cd221e1b8c64f1"
+                "reference": "be7e2bc467135fe804199aabfbfa84971df8d3a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/siriusphp/validation/zipball/84299472049b728f7ea769cb44cd221e1b8c64f1",
-                "reference": "84299472049b728f7ea769cb44cd221e1b8c64f1",
+                "url": "https://api.github.com/repos/siriusphp/validation/zipball/be7e2bc467135fe804199aabfbfa84971df8d3a6",
+                "reference": "be7e2bc467135fe804199aabfbfa84971df8d3a6",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +176,7 @@
                 "security",
                 "validation"
             ],
-            "time": "2016-04-29 14:35:40"
+            "time": "2016-07-23 06:09:10"
         },
         {
             "name": "upgplc/php-clientlibrary",
@@ -183,16 +184,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/UPGcarts/clientlibrary.git",
-                "reference": "93d21458d7d546eb88ad4cc0352b35217c69f9bb"
+                "reference": "ec75beebc02dd1f183148a6c0d7d7383ec2f1924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/UPGcarts/clientlibrary/zipball/93d21458d7d546eb88ad4cc0352b35217c69f9bb",
-                "reference": "93d21458d7d546eb88ad4cc0352b35217c69f9bb",
+                "url": "https://api.github.com/repos/UPGcarts/clientlibrary/zipball/ec75beebc02dd1f183148a6c0d7d7383ec2f1924",
+                "reference": "ec75beebc02dd1f183148a6c0d7d7383ec2f1924",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": ">=1.16.0,<1.18",
+                "monolog/monolog": ">=1.16.0,<1.20",
                 "php": ">=5.3",
                 "siriusphp/validation": "dev-master"
             },
@@ -208,12 +209,12 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "description": "The Client Library for Payco",
+            "description": "The Client Library for UPG",
             "keywords": [
                 "Upg",
                 "library"
             ],
-            "time": "2016-07-01 07:58:14"
+            "time": "2016-08-26 07:50:23"
         }
     ],
     "packages-dev": [],

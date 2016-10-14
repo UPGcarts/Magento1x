@@ -1,11 +1,13 @@
 <?php
 use Upg\Library\Config;
 use Upg\Library\Request\CreateTransaction;
+use Upg\Library\Request\UpdateTransaction;
 use Upg\Library\Request\Reserve;
 use Upg\Library\Request\Capture;
 use Upg\Library\Request\Refund;
 use Upg\Library\Request\Finish;
 use Upg\Library\Request\Cancel;
+use Upg\Library\Api\UpdateTransaction as UpdateTransactionCall;
 use Upg\Library\Api\Reserve as ReserveCall;
 use Upg\Library\Api\Capture as CaptureCall;
 use Upg\Library\Api\Refund as RefundCall;
@@ -16,6 +18,7 @@ use Upg\Library\Request\Objects\Amount;
 use Upg\Library\Request\Objects\BasketItem;
 use Upg\Library\Request\Objects\Person;
 use Upg\Library\Request\Objects\Company;
+use Upg\Library\PaymentMethods\Methods;
 use Upg\Library\Risk\RiskClass;
 
 /**
@@ -92,9 +95,9 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
      */
     public function getQuoteAddress(Mage_Sales_Model_Quote_Address $billingAddress)
     {
-
+        $street = $billingAddress->getStreet();
         $address = new Address();
-        $address->setStreet($billingAddress->getStreetFull())
+        $address->setStreet(isset($street[0]) ? $street[0] : '')
             ->setZip($billingAddress->getPostcode())
             ->setCity($billingAddress->getCity())
             ->setState($billingAddress->getRegion())
@@ -162,7 +165,7 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
             {
                 $riskClass = intval($resource->getAttributeRawValue($item->getProductId(), 'upg_risk_class', $item->getStoreId()));
 
-                if($request->getUserRiskClass() != $riskClass && $this->configHelper->getProductRiskClass()) {
+                if($request->getUserRiskClass() !== $riskClass && $this->configHelper->getProductRiskClass()) {
                     $t->setBasketItemRiskClass($riskClass);
                 }
 
@@ -195,6 +198,64 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
     public function getGuestUserId($orderId)
     {
         return 'GUEST:ORDER:'.$orderId;
+    }
+
+    /**
+     * @param Mage_Sales_Model_Order $order
+     * @param Mage_Sales_Model_Order_Invoice $invoice
+     * @return UpdateTransaction $request
+     */
+    public function getUpdateTransaction(Mage_Sales_Model_Order $order, Mage_Sales_Model_Order_Invoice $invoice, $captureID)
+    {
+        $request = new UpdateTransaction(Mage::helper('upg_payments')->getConfig($order->getStoreId(), $order->getOrderCurrencyCode()));
+
+        $request
+            ->setOrderID($order->getIncrementId())
+            ->setCaptureID($captureID)
+            ->setInvoiceNumber($invoice->getIncrementId())
+            ->setInvoiceDate(new DateTime($invoice->getCreatedAt()))
+            ->setOriginalInvoiceAmount(new \Upg\Library\Request\Objects\Amount($this->getPriceInLowestUnit($invoice->getGrandTotal())));
+
+        // Set due date and payment target if payment method is bill pay
+        $transaction = Mage::getModel('upg_payments/transaction')
+            ->getCollection()
+            ->addFieldToFilter('order_ref', array('eq' => $order->getIncrementId()))
+            ->getFirstItem();
+        $paymentMethod = $transaction->getPaymentMethod();
+        if ($paymentMethod === Methods::PAYMENT_METHOD_TYPE_BILL || $paymentMethod === Methods::PAYMENT_METHOD_TYPE_BILL_SECURE) {
+            // Payment Target
+            $createdDate = (new DateTime())->setTimestamp($invoice->getCreatedAtDate()->getTimestamp());
+            $paymentTargetDays = $this->configHelper->getPaymentTarget();
+            $paymentTargetInterval = new DateInterval("P{$paymentTargetDays}D");
+            $paymentTarget = $createdDate->add($paymentTargetInterval);  // createdDate + paymentTarget
+            $request->setPaymentTarget($paymentTarget);
+            // Due Date
+            $createdDate = (new DateTime())->setTimestamp($invoice->getCreatedAtDate()->getTimestamp());
+            $minDueDate = new DateInterval('P30D');  // Min due date is 30 days (this value is set by German law)
+            $dueDate = $createdDate->add($minDueDate);
+            $dueDate->add($paymentTargetInterval);  // createdDate + paymentTarget + minDueDate
+            $request->setDueDate($dueDate);
+        }
+
+        // Add invoice pdf
+        $pdf = Mage::getModel('sales/order_pdf_invoice')->getPdf(array($invoice));
+        $pdfWrapper = Mage::getModel('upg_payments/pdfWrapper');
+        $pdfWrapper->setPdf($pdf);
+        $request->setInvoicePDF($pdfWrapper);
+
+        return $request;
+    }
+
+    public function sendUpdateTransaction(Mage_Sales_Model_Order $order, $request)
+    {
+        try {
+            $api = new UpdateTransactionCall(Mage::helper('upg_payments')->getConfig($order->getStoreId(), $order->getOrderCurrencyCode()), $request);
+            $response = $api->sendRequest();
+            return $response;
+        } catch (Exception $e) {
+            Mage::helper('upg_payments')->log("Update Transaction failed for {$request->getOrderID()} - Reason {$e->getMessage()}");
+            throw $e;
+        }
     }
 
     /**
@@ -373,6 +434,7 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
     public function reserveTransaction(Mage_Sales_Model_Order $order, Upg_Payments_Model_Transaction $transaction)
     {
         $paymentInstrumentId = $transaction->getPaymentInstrumentId();
+        $additional_information = $transaction->getAdditionalInformation();
 
         $total = Mage::getModel('checkout/cart')->getQuote()->getGrandTotal();
 
@@ -385,6 +447,9 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
 
         if(!empty($paymentInstrumentId)) {
             $request->setPaymentInstrumentID($paymentInstrumentId);
+        }
+        if(!empty($additional_information))        {
+            $request->setAdditionalInformation($additional_information);
         }
 
         return $request;

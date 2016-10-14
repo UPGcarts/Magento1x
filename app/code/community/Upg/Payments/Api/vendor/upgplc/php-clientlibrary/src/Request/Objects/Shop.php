@@ -5,7 +5,7 @@ namespace Upg\Library\Request\Objects;
 /**
  * Class Shop
  * For shop json objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @deprecated No longer used by the public api.
  * @package Upg\Library\Request\Objects
  */
 class Shop extends AbstractObject

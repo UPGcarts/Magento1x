@@ -144,7 +144,7 @@
                 </fields>
             </upg_payments_global>
             <upg_payments_b2b translate="label" module="upg_payments">
-                <label>B2B settings</label>
+                    <label>B2B Settings</label>
                 <sort_order>20</sort_order>
                 <show_in_default>1</show_in_default>
                 <show_in_website>1</show_in_website>
@@ -152,7 +152,7 @@
                 <expanded>1</expanded>
                 <fields>
                     <enable_b2b>
-                        <label>Enable B2B transaction</label>
+                            <label>Enable B2B Transaction</label>
                         <comment><![CDATA[Enable B2B transaction if user provides a company name with a company registration id]]></comment>
                         <frontend_type>select</frontend_type>
                         <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -163,7 +163,7 @@
                         <sort_order>10</sort_order>
                     </enable_b2b>
                     <show_extended_b2b_checkout>
-                        <label>Show extended B2B fields</label>
+                            <label>Show Extended B2B Fields</label>
                         <comment><![CDATA[Show the extend b2b on the checkout]]></comment>
                         <frontend_type>select</frontend_type>
                         <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -174,7 +174,7 @@
                         <sort_order>10</sort_order>
                     </show_extended_b2b_checkout>
                     <show_company_registration_type>
-                        <label>Show Company Registration type</label>
+                            <label>Show Company Registration Type</label>
                         <comment><![CDATA[Show Company Registration type on checkout]]></comment>
                         <frontend_type>select</frontend_type>
                         <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -205,7 +205,7 @@
                     <!--</store_id>-->
                     <currency_mapping>
                         <label>Currency to Store ID Mapping</label>
-                        <comment><![CDATA[Map your Upg store to your Magento currency]]></comment>
+                            <comment><![CDATA[Map your Crefo store to your Magento currency]]></comment>
                         <frontend_model>upg_payments/adminhtml_system_config_currencysettings</frontend_model>
                         <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
                         <config_path>payment/upg/currency_mapping</config_path>
@@ -224,7 +224,7 @@
                 <expanded>1</expanded>
                 <fields>
                     <customergroup_riskclass>
-                        <label>Customer Risk class mapping</label>
+                            <label>Customer Risk Class Mapping</label>
                         <comment><![CDATA[Map customer groups to a given risk class]]></comment>
                         <frontend_model>upg_payments/adminhtml_system_config_customerriskclass</frontend_model>
                         <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
@@ -236,7 +236,7 @@
                 </fields>
             </upg_payments_customer>
             <upg_payments_debug translate="label" module="upg_payments">
-                <label>Logging and Debug</label>
+                    <label>Log Settings</label>
                 <sort_order>30</sort_order>
                 <show_in_default>1</show_in_default>
                 <show_in_website>1</show_in_website>
@@ -244,7 +244,7 @@
                 <expanded>1</expanded>
                 <fields>
                     <log_on>
-                        <label>Logging Toggle</label>
+                            <label>Enable Logging</label>
                         <comment><![CDATA[Enable logging]]></comment>
                         <frontend_type>select</frontend_type>
                         <source_model>adminhtml/system_config_source_yesno</source_model>
@@ -255,8 +255,8 @@
                         <show_in_store>0</show_in_store>
                     </log_on>
                     <log_target>
-                        <label>Logging File</label>
-                        <comment><![CDATA[Name for general logging file in var/log]]></comment>
+                            <label>Log File</label>
+                            <comment><![CDATA[Name for general log file in var/log]]></comment>
                         <frontend_type>text</frontend_type>
                         <sort_order>20</sort_order>
                         <config_path>payment/upg/log_target</config_path>
@@ -265,8 +265,8 @@
                         <show_in_store>0</show_in_store>
                     </log_target>
                     <log_api_target>
-                        <label>API Logging File</label>
-                        <comment><![CDATA[Name for the API logging file in var/log]]></comment>
+                            <label>API Log File</label>
+                            <comment><![CDATA[Name for the API log file in var/log]]></comment>
                         <frontend_type>text</frontend_type>
                         <sort_order>30</sort_order>
                         <config_path>payment/upg/log_api_target</config_path>
@@ -276,7 +276,7 @@
                     </log_api_target>
                     <log_level>
                         <label>Log Level</label>
-                        <comment><![CDATA[The level of logging to output to files]]></comment>
+                            <comment><![CDATA[The log level to output in logfile]]></comment>
                         <frontend_type>select</frontend_type>
                         <sort_order>40</sort_order>
                         <config_path>payment/upg/log_level</config_path>
@@ -287,6 +287,110 @@
                     </log_level>
                 </fields>
             </upg_payments_debug>
+                <upg_payments_payment_modal_desktop translate="label" module="upg_payments">
+                    <label>Payment iframe Dimensions Desktop</label>
+                    <sort_order>35</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <units>
+                            <label>Units</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <comment><![CDATA[Select the units used for width and height]]></comment>
+                            <source_model>upg_payments/sourceModels_unitsSelect</source_model>
+                            <config_path>payment/upg/payment_iframe_dimensions_units</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </units>
+                        <width>
+                            <label>Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <comment><![CDATA[Select the width of the iframe]]></comment>
+                            <config_path>payment/upg/payment_iframe_dimensions_width</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+                        <height>
+                            <label>Height</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <comment><![CDATA[Select the height of the iframe]]></comment>
+                            <config_path>payment/upg/payment_iframe_dimensions_height</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                        <fit_to_width_desktop>
+                            <label>Automatically set iframe size</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>40</sort_order>
+                            <comment><![CDATA[Overrides width and height settings to be 800x600 px]]></comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/payment_iframe_dimensions_fit_to_width_desktop</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fit_to_width_desktop>
+                    </fields>
+                </upg_payments_payment_modal_desktop>
+                <upg_payments_payment_modal_mobile translate="label" module="upg_payments">
+                    <label>Payment iframe Dimensions Mobile</label>
+                    <sort_order>37</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <mobile_browser_width>
+                            <label>Set maximum browser width to be considered a mobile browser (px)</label>
+                            <sort_order>10</sort_order>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[All devices with a width smaller than or equal to this value will get an iframe which takes up 100% of the screen]]></comment>
+                            <config_path>payment/upg/payment_iframe_dimensions_max_mobile_browser_width</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </mobile_browser_width>
+                    </fields>
+                </upg_payments_payment_modal_mobile>
+                <upg_payments_invoice translate="label" module="upg_payments">
+                    <label>Invoice Settings</label>
+                    <sort_order>25</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <update_transaction_enabled>
+                            <label>Add Invoice Information to Bill Transactions</label>
+                            <!--<comment><![CDATA[Sends additional invoice information.]]></comment>-->
+                            <sort_order>5</sort_order>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <config_path>payment/upg/update_transaction_enabled</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </update_transaction_enabled>
+                        <payment_target>
+                            <label>Payment Target (days)</label>
+                            <comment><![CDATA[The due date for any bill payment defaults to 30 days after the invoice creation date. The payment target days are then added to this amount to give the final due date. For example; a payment target of 10 days would give a due date of 40 days after the invoice creation date.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-number</validate>
+                            <sort_order>10</sort_order>
+                            <config_path>payment/upg/payment_target</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment_target>
+                    </fields>
+                </upg_payments_invoice>
         </groups>
     </crefo_payments>
 </sections>

@@ -7,7 +7,7 @@ use Upg\Library\Validation\Helper\Constants;
 /**
  * Class HostedPagesText
  * For hostedPagesText json Objects
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/json-objects
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/additional-information-for-hosted-pages
  * @package Upg\Library\Request\Objects
  */
 class HostedPagesText extends AbstractObject
@@ -15,79 +15,79 @@ class HostedPagesText extends AbstractObject
 
     /**
      * Payment method: Direct Debit
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_DD = "DD";
 
     /**
      * Payment methods: Credit Card
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_CC = "CC";
 
     /**
      * Payment method: Credit Card 3D Secure
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_CC3D = "CC3D";
 
     /**
      * Payment method: Cash in advance
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_PREPAID = "PREPAID";
 
     /**
      * Payment method: PayPal
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_PAYPAL = "PAYPAL";
 
     /**
      * Payment method: Sofortüberweisung
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_SU = "SU";
 
     /**
      * Payment method: Bill Payment
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_BILL = "BILL";
 
     /**
      * Payment method: Bill Payment Secure
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_BILL_SECURE = "BILL_SECURE";
 
     /**
      * Payment method: Cash on delivery
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_COD = "COD";
 
     /**
      * Payment method: Ideal
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_IDEAL = "IDEAL";
 
     /**
      * Payment method: Installment
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_INSTALLMENT = "INSTALLMENT";
 
     /**
      * Payment method: PayCo Wallet
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_PAYCO_WALLET = "PAYCO_WALLET";
 
     /**
      * Payment method: Dummy
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      */
     const PAYMENT_METHOD_TYPE_DUMMY = "DUMMY";
 
@@ -115,7 +115,7 @@ class HostedPagesText extends AbstractObject
 
     /**
      * Set the payment method must be certain values
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      * @see Upg\Library\Request\Objects\HostedPagesText::PAYMENT_METHOD_TYPE_DD
      * @see Upg\Library\Request\Objects\HostedPagesText::PAYMENT_METHOD_TYPE_CC
      * @see Upg\Library\Request\Objects\HostedPagesText::PAYMENT_METHOD_TYPE_CC3D
@@ -140,7 +140,7 @@ class HostedPagesText extends AbstractObject
 
     /**
      * Return the payment method that has been set
-     * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/paymentmethods
+     * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/paymentmethods
      * @see Upg\Library\Request\Objects\HostedPagesText::PAYMENT_METHOD_TYPE_DD
      * @see Upg\Library\Request\Objects\HostedPagesText::PAYMENT_METHOD_TYPE_CC
      * @see Upg\Library\Request\Objects\HostedPagesText::PAYMENT_METHOD_TYPE_CC3D

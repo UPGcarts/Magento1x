@@ -6,7 +6,7 @@ use Upg\Library\Config;
 /**
  * Class RegisterUser
  * Stub for the registerUser call
- * @link http://www.manula.com/manuals/payco/payment-api/hostedpagesdraft/en/topic/registeruser
+ * @link https://documentation.upgplc.com/hostedpagesdraft/en/topic/registeruser
  * @package Upg\Library\Api
  */
 class RegisterUser extends AbstractApi
