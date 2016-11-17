@@ -42,11 +42,17 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
      */
     protected $configHelper;
 
+    /**
+     * @var Upg_Payments_Helper_PaymentFee
+     */
+    protected $paymentFeeHelper;
+
     public function __construct()
     {
         $this->config = Mage::helper('upg_payments')->getConfig();
         $this->localeHelper = Mage::helper('upg_payments/locale');
         $this->configHelper = Mage::helper('upg_payments/config');
+        $this->paymentFeeHelper = Mage::helper('upg_payments/paymentFee');
     }
 
     public function mapGenderToSalutation($gender)
@@ -154,7 +160,6 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
             $t->setBasketItemAmount($amount)
                 ->setBasketItemCount($item->getQty())
                 ->setBasketItemText($item->getName())
-                ->setBasketItemID($item->getId())
                 ->setBasketItemType(\Upg\Library\Basket\BasketItemType::BASKET_ITEM_TYPE_DEFAULT);
 
             $price += $amount->getAmount();
@@ -266,6 +271,11 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
     {
         $request = new CreateTransaction(Mage::helper('upg_payments')->getConfig($quote->getStoreId(), $quote->getQuoteCurrencyCode()));
 
+        // Remove any old fees from the quote
+        $quote->setData('upg_payments_fee', null);
+        $quote->setData('upg_payments_base_fee', null);
+        $quote->collectTotals();
+
         //Assign the items to the basket and calculate amounts including the total
         $addedItems = $this->setItems($quote->getAllVisibleItems(), $request);
         if($quote->getShippingAddress()->getShippingAmount() > 0) {
@@ -307,6 +317,55 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
             ->setShippingRecipient($shippingRecipient)
             ->setLocale($this->localeHelper->getLocaleCode()); //Get from current language set in config
 
+        // Create hostedPagesText Objects including custom payment fees
+        $currencyCode = $quote->getQuoteCurrencyCode();
+        $locale = $request->getLocale();
+        $paymentFees = $this->configHelper->getCustomPaymentFees($currencyCode, $locale);
+        foreach ($paymentFees as &$paymentFee) {
+            // Calculate the fee and base_fee for each payment type
+            $fee = $this->paymentFeeHelper->calcFee(
+                $paymentFee['paymentfee_feetype'],
+                $paymentFee['paymentfee_feeamount'],
+                $quote->getGrandTotal()
+            );
+
+            if ($paymentFee['paymentfee_feetype'] === 'flat') {
+                // Need to convert flat fee into base currency
+                $currency = Mage::helper('upg_payments/currency');
+                $base_fee = $currency->convertToBaseCurrency($paymentFee['paymentfee_feeamount']);
+            }
+            else {
+                $base_fee = $this->paymentFeeHelper->calcFee(
+                    $paymentFee['paymentfee_feetype'],
+                    $paymentFee['paymentfee_feeamount'],
+                    $quote->getBaseGrandTotal()
+                );
+            }
+
+            // These later get stored in the Transaction DB table
+            $paymentFee['paymentfee_fee'] = $this->getPriceInLowestUnit($fee);
+            $paymentFee['paymentfee_basefee'] = $this->getPriceInLowestUnit($base_fee);
+
+            // Add hostedPagesText for this payment type
+            $this->paymentFeeHelper->addHostedPagesTextToRequest($request, $paymentFee);
+
+            // If payment method is credit card then also need to add hostedPagesText for 3D secure
+            if ($paymentFee['paymentfee_paymentmethod'] === Upg\Library\PaymentMethods\Methods::PAYMENT_METHOD_TYPE_CC) {
+                $paymentFee3DSecure = array(
+                    'paymentfee_currency' => $paymentFee['paymentfee_currency'],
+                    'paymentfee_locale' => $paymentFee['paymentfee_locale'],
+                    'paymentfee_text' => $paymentFee['paymentfee_text'],
+                    'paymentfee_feetype' => $paymentFee['paymentfee_feetype'],
+                    'paymentfee_feeamount' => $paymentFee['paymentfee_feeamount'],
+                    'paymentfee_fee' => $paymentFee['paymentfee_fee'],
+                    'paymentfee_basefee' => $paymentFee['paymentfee_basefee'],
+                    'paymentfee_paymentmethod' => Upg\Library\PaymentMethods\Methods::PAYMENT_METHOD_TYPE_CC3D
+                );
+                $this->paymentFeeHelper->addHostedPagesTextToRequest($request, $paymentFee3DSecure);
+                $paymentFees[] = $paymentFee3DSecure;  // Add this to be stored in Transaction DB table
+            }
+        }
+
         $this->addBusinessDetails($quote, $request);
         if($request->getUserType() == CreateTransaction::USER_TYPE_PRIVATE)
         {
@@ -319,6 +378,11 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
         $transaction = Mage::getModel('upg_payments/transaction')
             ->setData('order_ref', $orderId)
             ->setData('autocapture', $this->configHelper->getAutoCapture());
+
+        // Add payment fee data to Transaction DB table
+        if (count($paymentFees) === 0) $transaction->setData('payment_fees', '');
+        else $transaction->setData('payment_fees', serialize($paymentFees));
+
         $transaction->save();
 
         return $request;
@@ -587,23 +651,42 @@ class Upg_Payments_Helper_Transaction extends Mage_Core_Helper_Abstract
 
     private function setItemsReserve(Mage_Sales_Model_Order $order, Reserve $request)
     {
+        $helper = Mage::helper('upg_payments');
+        $resource = Mage::getModel('catalog/product')->getResource();
+
         $calculatedGradTotal = 0;
 
         $items = $order->getAllVisibleItems();
-
         foreach($items as $item) {
             $t = new BasketItem();
             $amount = $this->getOrderItemAmount($item);
             $t->setBasketItemAmount($amount)
-                ->setBasketItemCount($item->getQty())
+                ->setBasketItemCount($item->getQtyOrdered())
                 ->setBasketItemText($item->getName())
-                ->setBasketItemID($item->getId());
+                ->setBasketItemType(\Upg\Library\Basket\BasketItemType::BASKET_ITEM_TYPE_DEFAULT);
+
+            if ($this->configHelper->getProductRiskClass()) {
+                $riskClass = intval($resource->getAttributeRawValue($item->getProductId(), 'upg_risk_class', $item->getStoreId()));
+                $t->setBasketItemRiskClass($riskClass);
+            }
 
             $request->addBasketItem($t);
             $calculatedGradTotal += $amount->getAmount();
         }
 
-        $shippingAmount = $order->getShippingAmount();
+        // Add payment fee as basket item if fee has been set
+        if (! is_null($order->getData('upg_payments_fee'))) {
+            $t = new BasketItem();
+            $amount = new Amount($this->getPriceInLowestUnit($order->getData('upg_payments_fee')));
+            $t->setBasketItemAmount($amount)
+                ->setBasketItemCount(1)
+                ->setBasketItemText($helper->__('Payment Fee'))
+                ->setBasketItemType(\Upg\Library\Basket\BasketItemType::BASKET_ITEM_TYPE_DEFAULT);
+            $request->addBasketItem($t);
+            $calculatedGradTotal += $amount->getAmount();
+        }
+
+        $shippingAmount = $this->getPriceInLowestUnit($order->getShippingAmount());
         if($shippingAmount > 0) {
             $shippingItem = new BasketItem();
             $shippingItem->setBasketItemAmount(new Amount($shippingAmount))

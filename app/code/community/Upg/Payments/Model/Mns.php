@@ -49,7 +49,6 @@ class Upg_Payments_Model_Mns
                         $processed = true;
                         break;
                     case 'NEW':
-                        $processed = true;
                     case 'ACKNOWLEDGEPENDING':
                         $processed = true;
                         break;
@@ -80,7 +79,8 @@ class Upg_Payments_Model_Mns
             if(!empty($mnsOrderStatus) && ($orderStatusProcess || !$processed)) {
                 switch ($mnsOrderStatus) {
                     case 'PAID':
-                        $processed = self::paid($order);
+                        self::paid($order);
+                        $processed = true;
                         break;
                     case 'PAYPENDING':
                         $processed = true;
@@ -145,12 +145,14 @@ class Upg_Payments_Model_Mns
         }
         self::setState($order,'fraud');
         $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Order canceled due to fraud"));
+        $order->save();
     }
 
     public static function fraudPending(Mage_Sales_Model_Order $order)
     {
         self::setState($order,'fraud');
         $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Extended fraud check being processed"));
+        $order->save();
     }
 
     public static function merchantPending(Mage_Sales_Model_Order $order, Upg_Payments_Model_Message $message)
@@ -163,29 +165,44 @@ class Upg_Payments_Model_Mns
         $paymentMethod = $transaction->getPaymentMethod();
         $amount = $message->getAmount();
         $orderAmount = Mage::helper('upg_payments/transaction')->getPriceInLowestUnit($order->getGrandTotal());
-        $status = '';
-
-        if(!$autoCapture && $paymentMethod == 'PREPAID') {
+        $status = Mage_Sales_Model_Order::STATE_PROCESSING;
+        //Check if a full or partial payment was made in case of cash in advance. Add comment accordingly.
+        if($paymentMethod == 'PREPAID'){
             if($amount > 0) {
-                $convertedAmount = Mage::helper('core')->currencyByStore($amount/100, $order->getStoreId(), true, false);
-                //ok now check the order amount and depending on if all or some were captured update the status
+                $convertedAmount = Mage::helper('core')->currencyByStore($amount/100, $order->getStoreId(), true, false);                
                 if($amount >= $orderAmount) {
-                    //all payment was received
+                    //full payment was received
                     $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Prepaid full payment %s", $convertedAmount.' '.$order->getOrderCurrencyCode()));
-                    $status = Mage_Sales_Model_Order::STATE_PROCESSING;
                 }else{
-                    //partial payment
-                    //Mage::helper('upg_payments')->__('Got a API finish error %s', $e->getMessage())
+                    //partial payment was received
                     $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Prepaid partial payment %s",$convertedAmount.' '.$order->getOrderCurrencyCode()));
-                    $status = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
                 }
-                self::setState($order,$status,$status);
-                $order->save();
+            }
+        }
+        //Check if the transaction had autocapture enabled
+        if(!$autoCapture) {
+            //If order is not invoiced yet, add comment
+            if($order->hasInvoices() == false)
+            {
+                $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Waiting for capture"));
             }
         }else{
-            $order->addStatusHistoryComment("Waiting for capture");
-            $order->save();
+            //If order is not invoiced yet, create invoice and add comment
+            if($order->hasInvoices() == false)
+            {
+                //Invoice the full order if autocapture was enabled
+                Mage::unregister('payco_autocaptue_invoice');
+                Mage::register('payco_autocaptue_invoice', $order->getIncrementId());
+                if(!self::invoice($order)){
+                    $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Order invoice could not be automatically created."));
+                }else{
+                    $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Order invoice was automatically created."));
+                }
+                $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Order was captured automatically."));
+            }            
         }
+        self::setState($order,$status,$status);
+        $order->save();
     }
 
     public static function ciaPending(Mage_Sales_Model_Order $order)
@@ -197,26 +214,8 @@ class Upg_Payments_Model_Mns
 
     public static function paid(Mage_Sales_Model_Order $order)
     {
-        //ok first of all check if autocapture was enabled and if so we will invoice at this stage
-        $transaction = Mage::getModel('upg_payments/transaction')->getCollection()
-            ->addFieldToFilter('order_ref', $order->getIncrementId())
-            ->getFirstItem();
-
-        if($transaction->getAutocapture() > 0) {
-            //ok lets do the invoice
-            Mage::unregister('payco_autocaptue_invoice');
-            Mage::register('payco_autocaptue_invoice', $order->getIncrementId());
-            if(!self::invoice($order)){
-                return false;
-            }
-        }
-
-        if(!in_array($transaction->getPaymentMethod(), array('BILL','BILL_SECURE','DD'))) {
-            $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Got paid notification"));
-        }
-
-        self::setState($order,'processing', 'processing');
-        return true;
+        $order->addStatusHistoryComment(Mage::helper('upg_payments')->__("Got paid notification"));
+        $order->save();
     }
 
     public static function paymentFailed(Mage_Sales_Model_Order $order)
@@ -253,8 +252,11 @@ class Upg_Payments_Model_Mns
 
     public static function cancelled(Mage_Sales_Model_Order $order)
     {
-        $status = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
-        self::setState($order, $status, $status);
+        if($order->getState() == 'payment_review')
+        {
+            $status = Mage_Sales_Model_Order::STATE_PENDING_PAYMENT;
+            self::setState($order, $status, $status);
+        }
         if ($order->canCancel()) {
             $order->cancel();
             $order->save();

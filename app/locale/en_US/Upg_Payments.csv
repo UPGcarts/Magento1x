@@ -13,7 +13,7 @@ PAYMENT_METHOD_PAYCO_WALLET,Payco Wallet
 PAYMENT_METHOD_PAYCO_DUMMY,Dummy
 CC,Credit Card
 DD,Direct Debit
-CC3D,"Credit Card"
+CC3D,"Credit Card (3D Secure)"
 PREPAID,Prepaid
 PAYPAL,PayPal
 SU,Sofort&uuml;berweisung
@@ -109,7 +109,7 @@ Global Settings,Global Settings
 Enabled,Enabled
 Enable or disable the payment method,Enable or disable the payment method
 Payment Method Name,Payment Method Name
-Payment Method Name Desc,Payment Method Name
+Payment Method Name,Payment Method Name
 Payment Method Description,Payment Method Description
 Checkout Description,Checkout Description
 Upload File,Upload File
@@ -154,6 +154,9 @@ Name for general log file in var/log,Name for general log file in var/log
 Name for the API log file in var/log,Name for the API log file in var/log
 The log level to output in logfile,"Define the log level here"
 accountHolder,Account Holder
+Enable logging,Enable logging
+"Name for general logging file in var/log","Name for general logging file in var/log"
+"Name for the API logging file in var/log","Name for the API logging file in var/log"
 "The level of logging to output to files","The level of logging to output to files"
 "Yes","Yes"
 "No","No"
@@ -184,3 +187,18 @@ Overrides width and height settings to be 800x600 px,Overrides width and height 
 Payment iframe Dimensions Mobile,Payment iframe Dimensions Mobile
 Set maximum browser width to be considered a mobile browser (px),Set maximum browser width to be considered a mobile browser (px)
 All devices with a width smaller than or equal to this value will get an iframe which takes up 100% of the screen,All devices with a width smaller than or equal to this value will get an iframe which takes up 100% of the screen
+"Payment Fees","Payment Fees"
+"Custom Payment Fees","Custom Payment Fees"
+"Set custom payment fees for any combination of payment method, currency and language","Set custom payment fees for any combination of payment method, currency and language"
+"Payment Fee","Payment Fee"
+"Payment Fee Refund","Payment Fee Refund"
+"Locale", "Locale"
+"Fee Type", "Fee Type"
+"Flat", "Flat"
+"Percent", "Percent"
+"Add custom payment fee", "Add custom payment fee"
+"Fee Amount", "Fee Amount"
+"Text", "Text"
+"Order was captured automatically.","Order was captured automatically."
+"Order invoice was automatically created.", "Order invoice was automatically created."
+"Order invoice could not be automatically created.", "Order invoice could not be automatically created."

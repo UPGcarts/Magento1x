@@ -33,7 +33,7 @@
                         </enabled>
                         <title>
                             <label>Payment Method Name</label>
-                            <comment><![CDATA[Payment Method Name Desc]]></comment>
+                            <comment><![CDATA[Payment Method Name]]></comment>
                             <frontend_type>text</frontend_type>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
@@ -393,6 +393,26 @@
                         </payment_target>
                     </fields>
                 </upg_payments_invoice>
+                <upg_payments_fees translate="label" module="upg_payments">
+                    <label>Payment Fees</label>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <payment_fees>
+                            <label>Custom Payment Fees</label>
+                            <comment><![CDATA[Set custom payment fees for any combination of payment method, currency and language]]></comment>
+                            <frontend_model>upg_payments/adminhtml_system_config_customPaymentFees</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized_array</backend_model>
+                            <config_path>payment/upg/payment_fees</config_path>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </payment_fees>
+                    </fields>
+                </upg_payments_fees>
             </groups>
         </upg_payments>
     </sections>

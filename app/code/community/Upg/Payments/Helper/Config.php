@@ -184,4 +184,16 @@ class Upg_Payments_Helper_Config extends Mage_Core_Helper_Abstract
     {
         return $this->getConfigValue('update_transaction_enabled', $storeId);
     }
+
+    public function getCustomPaymentFees($currency, $locale, $storeId = null)
+    {
+        $paymentFeeConfigs = unserialize($this->getConfigValue('payment_fees', $storeId));
+        $paymentFees = array();
+        foreach ($paymentFeeConfigs as $p) {
+            if ($p['paymentfee_currency'] === $currency && $p['paymentfee_locale'] === $locale) {
+                $paymentFees[] = $p;
+            }
+        }
+        return $paymentFees;
+    }
 }

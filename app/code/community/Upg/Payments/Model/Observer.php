@@ -42,4 +42,41 @@ class Upg_Payments_Model_Observer
                 ->save();
         }
     }
+
+    public function resetCustomFeeAddedFlag()
+    {
+        Mage::getSingleton('upg_payments/totals_quote_feeAddedFlag')->reset();
+    }
+
+    public function setCreditmemoPaymentFee($observer)
+    {
+        $creditmemo = $observer->getCreditmemo();
+
+        $invoice = $creditmemo->getInvoice();
+        if (is_null($invoice->getId())) {
+            return;
+        }
+
+        $fee = $invoice->getData('upg_payments_fee');
+        $base_fee = $invoice->getData('upg_payments_base_fee');
+        $creditmemo->setData('upg_payments_fee', $fee);
+        $creditmemo->setData('upg_payments_base_fee', $base_fee);
+    }
+
+    public function setInvoiceTotalPaymentFeeRefunded($observer)
+    {
+        $invoice = $observer->getInvoice();
+
+        $creditmemo = $invoice->getData('upg_creditmemo');
+        if (is_null($creditmemo)) {
+            return;
+        }
+
+        $refundedFee = $creditmemo->getData('upg_payments_fee_refunded');
+        $refundedBaseFee = $creditmemo->getData('upg_payments_base_fee_refunded');
+        $totalRefundedFee = $invoice->getData('upg_payments_fee_total_refunded');
+        $totalRefundedBaseFee = $invoice->getData('upg_payments_base_fee_total_refunded');
+        $invoice->setData('upg_payments_fee_total_refunded', $totalRefundedFee + $refundedFee);
+        $invoice->setData('upg_payments_base_fee_total_refunded', $totalRefundedBaseFee + $refundedBaseFee);
+    }
 }

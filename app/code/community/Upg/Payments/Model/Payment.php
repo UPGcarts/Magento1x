@@ -44,45 +44,12 @@ class Upg_Payments_Model_Payment extends Mage_Payment_Model_Method_Abstract
                 $payment->addTransaction(Mage_Sales_Model_Order_Payment_Transaction::TYPE_ORDER, null, false, "Adding order transaction");
                 $payment->setIsTransactionClosed(0);
                 $payment->setIsTransactionApproved(true);
-                $this->createPaidMnsMessage($order);
             }
             $payment->setTransactionId($order->getIncrementId());
         }catch (Exception $e) {
             Mage::throwException($e->getMessage());
         }
 
-    }
-
-    public function createPaidMnsMessage(Mage_Sales_Model_Order $order, $delay = 1)
-    {
-        $transaction = Mage::getModel('upg_payments/transaction')->getCollection()
-            ->addFieldToFilter('order_ref', $order->getIncrementId())
-            ->getFirstItem();
-
-        if($transaction->getAutocapture() && in_array($transaction->getPaymentMethod(), $this->autoCaptureMnsFake)) {
-            //ok for bill and dd create a fake mns message if autocapture is enabled
-            $mns = Mage::getModel('upg_payments/message')->setData(
-                array(
-                    'merchant_id' => '',
-                    'store_id' => '',
-                    'order_id' => $order->getIncrementId(),
-                    'capture_id' => $order->getIncrementId(),
-                    'merchant_reference' => '',
-                    'payment_reference' => '',
-                    'user_id' => '',
-                    'amount' => '',
-                    'currency' => '',
-                    'transaction_status' => 'PAID',
-                    'order_status' => 'PAID',
-                    'additional_data' => '',
-                    'version' => '2.0',
-                    'mns_timestamp' => 1,
-                    'mns_delay_processing' => $delay,
-                )
-            );
-
-            $mns->save();
-        }
     }
 
     /**

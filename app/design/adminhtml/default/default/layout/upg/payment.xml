@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <!-- Payment Fee Display -->
+    <adminhtml_sales_order_view>
+        <reference name="order_totals">
+            <block type="upg_payments/adminhtml_totals_quote_total" name="upg_payments_fee"/>
+        </reference>
+    </adminhtml_sales_order_view>
+    <adminhtml_sales_order_invoice_new>
+        <reference name="invoice_totals">
+            <block type="upg_payments/adminhtml_totals_invoice_totalNew" name="upg_payments_fee"/>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_totals">
+            <block type="upg_payments/adminhtml_totals_invoice_totalView" name="upg_payments_fee"/>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="invoice_totals">
+            <block type="upg_payments/adminhtml_totals_invoice_totalNew" name="upg_payments_fee"/>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="adjustments">
+            <action method="setTemplate">
+                <template>upg/sales/order/creditmemo/create/totals/adjustments.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="adjustments">
+            <action method="setTemplate">
+                <template>upg/sales/order/creditmemo/create/totals/adjustments.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_totals">
+            <block type="upg_payments/adminhtml_totals_creditmemo_totalView" name="upg_payments_fee"/>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+</layout>

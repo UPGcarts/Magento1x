@@ -113,7 +113,7 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
                 break;
         }
     }
-
+    //Callback after reservation
     // Gets called to handle 'offsite' payment methods like PayPal.
     // Gets called after the user returns to the site.
     // This provides similar functionality to Payment->authorize() but for PayPal rather that CC for example
@@ -123,7 +123,7 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
             ->addFieldToFilter('order_ref', $this->orderID)
             ->getFirstItem();
         $transactionIdArg = urlencode(base64_encode(Mage::helper('core')->encrypt($transaction->getId())));
-
+        //Redirect to payment page if an URL was provided - usually happens if the reservation failed
         if(!empty($this->paymentInstrumentsPageUrl)) {
             //handle the payment recovery
             $transaction->setRecoveryUrl($this->paymentInstrumentsPageUrl)->save();
@@ -132,7 +132,7 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
             return Mage::getUrl('paymentmodule/payment/recovery', array('_secure'=>TRUE,'transaction'=>$transactionIdArg));
         }
 
-
+        //If the reservation was successful
         if($this->resultCode == 0) {
             $order = Mage::getModel('sales/order')->loadByIncrementId($this->orderID);
             $order->getPayment()->setIsTransactionPending(false)->setIsTransactionApproved(true)->save();
@@ -140,11 +140,9 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
 
             $authTransaction = $order->getPayment()->getAuthorizationTransaction();
             $authTransaction->setIsClosed(0)->save();
-
-            $order->setState(Mage_Sales_Model_Order::STATE_PROCESSING, Mage_Sales_Model_Order::STATE_PROCESSING, "Got return");
+            //Set order status to pending payment until further notifications arrive
+            $order->setState(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, Mage_Sales_Model_Order::STATE_PENDING_PAYMENT, "Got return");
             $order->save();
-            //ok for bill and dd create a fake mns message if autocapture is enabled
-            Mage::getModel('upg_payments/payment')->createPaidMnsMessage($order, 0);
             $orderArg = urlencode(base64_encode(Mage::helper('core')->encrypt($order->getId())));
             return Mage::getUrl('paymentmodule/payment/complete', array('_secure'=>TRUE,'order'=>$orderArg));
         }
@@ -189,8 +187,9 @@ class Upg_Payments_Model_Callback extends Upg_Payments_Model_Abstract implements
             $transaction->save();
         }
 
+        Mage::helper('upg_payments/paymentFee')->addPaymentFeeToQuote($transaction);
+
         //ok now return the callback page
         return Mage::getUrl('paymentmodule/payment/confirm', $returnParams);
-
     }
 }
